@@ -10,3 +10,4 @@ export type Fund = {
     report_status: string
     nb_alerts: number
 }
+

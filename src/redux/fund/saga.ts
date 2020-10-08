@@ -9,23 +9,29 @@ import firebase from 'firstoreConfig'
 const { GET_FUNDS } = actions
 
 
-function getFunds(action: GetFundsAction) {
+function* getFunds() {
 
-    const getResult = async () => {
+    const getResult = async (): Promise<any> => {
         try {
-            const data = await firebase.database().ref('data').limitToFirst(10)
-            console.log(data);
-            
+           const data = await firebase.database().ref('data').orderByKey().limitToFirst(10).once('value').then(snap => 
+               snap.toJSON()
+               )
+           //    console.log(data);
+               
             return data
         } catch(err) {
-            return {err}
+            return {err: 'failed'}
         }
     }
 
     
-    const result = getResult()
-;
-    
+    const result = yield call<typeof getResult>(getResult)
+
+    if (result && !result.err) {
+        yield put(getFundsSuccess(result))
+    } else {
+        yield put(getFundsFailed('failed'))
+    }
 
     
 

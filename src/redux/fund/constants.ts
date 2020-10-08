@@ -26,7 +26,7 @@ export interface GetFundsAction {
   
   export interface GetFundsSuccessAction {
     type: typeof actions.GET_FUNDS_SUCCESS
-    funds: Fund[]
+    funds?: Fund[] | null
   }
   
   export interface GetFundsFailedAction {
