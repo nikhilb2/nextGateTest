@@ -7,12 +7,20 @@ import Title from 'components/common/title'
 import { makeStyles } from '@material-ui/core/styles'
 import theme from 'theme'
 import { Box } from '@material-ui/core'
+import Searchbox from 'components/common/searchbox'
 
 const useStyles = makeStyles({
-    root: {
+    headerContainer: {
         backgroundColor: theme.palette.primary.main,
         flexGrow: 1,
-        minHeight: '100vh'
+        borderBottomLeftRadius: '5vw',
+        paddingBottom: theme.spacing(2)
+    //    borderBottomRightRadius: '10vw'
+    },
+    searchBox: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
     }
 })
 
@@ -41,9 +49,14 @@ const Home = (props: Props) => {
     }, [getFunds])
     return(
         <Box
-         className={classes.root}>
+         >
+             <Box className={classes.headerContainer}>
             <Header />
             <Title title="Test project: Sample data CRUD"  />
+            <Box className={classes.searchBox}>
+                <Searchbox  />
+            </Box>
+            </Box>
         </Box>
     )
 }

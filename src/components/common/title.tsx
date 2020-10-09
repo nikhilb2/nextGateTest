@@ -4,7 +4,7 @@ import theme from 'theme'
 
 const useStyles = makeStyles({
     container: {
-        minHeight: theme.spacing(50),
+        minHeight: theme.spacing(10),
         alignItems: 'center',
     },
     title: {

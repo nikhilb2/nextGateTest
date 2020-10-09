@@ -9,7 +9,7 @@ import theme from 'theme';
 
 const useStyles = makeStyles({
     container: {
-        backgroundColor: 'transparent',
+        backgroundColor: theme.palette.primary.main,
         boxShadow: 'none'
     },
     title: {
@@ -22,9 +22,6 @@ const useStyles = makeStyles({
         justifyContent: 'space-between',
         width: '100%'
 
-    },
-    searchBox: {
-        marginRight: theme.spacing(4)
     }
 })
 const Header = () => {
@@ -33,7 +30,6 @@ const Header = () => {
         <AppBar className={classes.container} >
         <Toolbar className={classes.toolBar}>
           <Typography variant="h5" className={classes.title}>NextGateTech Firebase Test</Typography>
-          <Searchbox className={classes.searchBox} />
         </Toolbar>
       </AppBar>
     )
