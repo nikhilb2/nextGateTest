@@ -6,13 +6,15 @@ import { makeStyles } from '@material-ui/core/styles'
 import Searchbox from 'components/common/searchbox'
 import theme from 'theme';
 
+
 const useStyles = makeStyles({
     container: {
         backgroundColor: 'transparent',
         boxShadow: 'none'
     },
     title: {
-        letterSpacing: -.24
+        letterSpacing: -.24,
+        fontSize: 'calc(.1em + 2vw)',
     },
     toolBar: {
         display: 'flex',

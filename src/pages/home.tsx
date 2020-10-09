@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState, AppDispatch } from 'configureStore'
 import { getFunds } from 'redux/fund/actions'
 import Header from 'components/headers/header'
-
+import Title from 'components/common/title'
 import { makeStyles } from '@material-ui/core/styles'
 import theme from 'theme'
 import { Box } from '@material-ui/core'
@@ -11,7 +11,8 @@ import { Box } from '@material-ui/core'
 const useStyles = makeStyles({
     root: {
         backgroundColor: theme.palette.primary.main,
-        flexGrow: 1
+        flexGrow: 1,
+        minHeight: '100vh'
     }
 })
 
@@ -42,9 +43,7 @@ const Home = (props: Props) => {
         <Box
          className={classes.root}>
             <Header />
-            <div style={{height: 2000}}>
-                Test
-            </div>
+            <Title title="Test project: Sample data CRUD"  />
         </Box>
     )
 }
