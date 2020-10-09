@@ -4,7 +4,7 @@ import { actions } from './constants'
 import { getFundsSuccess, getFundsFailed } from './actions'
 import { call, put, all, takeLatest } from 'redux-saga/effects'
 import firebase from 'firstoreConfig'
-import { Success, Fail } from 'apiTypes'
+import { Success, Fail, Fund } from 'apiTypes'
 
 const { GET_FUNDS } = actions
 
@@ -25,10 +25,11 @@ function* getFunds() {
     }
 
     
-    const result = yield call<typeof getResult>(getResult)
-
+    let result = yield call<typeof getResult>(getResult)
+    result = Object.values(result)
+    
     if (result && !result.err) {
-        yield put(getFundsSuccess(result))
+        yield put(getFundsSuccess(result as Fund[]))
     } else {
         yield put(getFundsFailed(result.err))
     }

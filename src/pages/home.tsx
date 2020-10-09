@@ -56,7 +56,9 @@ const mapStateToProps = (state: RootState) => ({
   }
 const Home = (props: Props) => {
     const classes  = useStyles()
-    const { getFunds } = props
+    const { getFunds, funds } = props
+    console.log(typeof funds);
+    
     
     useEffect(() => {
         getFunds()
@@ -73,7 +75,7 @@ const Home = (props: Props) => {
                 <Searchbox  />
             </Box>
             </Box>
-            <Table className={classes.table} />
+            <Table className={classes.table} funds={funds} />
         </Box>
     )
 }

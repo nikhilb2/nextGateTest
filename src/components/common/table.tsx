@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Fund } from 'apiTypes';
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -45,38 +46,39 @@ const rows = [
 const useStyles = makeStyles({
   table: {
     //minWidth: 700,
-  },
+  }
 });
 
 
 interface Props {
     className?: string
+    funds?: Fund[] | null
 }
 export default function CustomizedTables(props: Props) {
   const classes = useStyles();
-    const { className } = props
+    const { className, funds } = props
   return (
     <TableContainer component={Paper} className={className}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>Fund name</StyledTableCell>
+            <StyledTableCell align="right">Class name</StyledTableCell>
+            <StyledTableCell align="right">Subfund Name</StyledTableCell>
+            <StyledTableCell align="right">Date</StyledTableCell>
+            <StyledTableCell align="right">Alerts</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {funds && funds.map((fund) => (
+            <StyledTableRow key={fund.index}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {fund.fund_name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
+              <StyledTableCell align="right">{fund.share_class_name}</StyledTableCell>
+              <StyledTableCell align="right">{fund.subfund_name}</StyledTableCell>
+              <StyledTableCell align="right">{fund.date}</StyledTableCell>
+              <StyledTableCell align="right">{fund.nb_alerts}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
