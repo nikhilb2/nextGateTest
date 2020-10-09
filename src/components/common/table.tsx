@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Fund } from 'apiTypes';
+import moment from 'moment'
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -57,6 +58,19 @@ interface Props {
 export default function CustomizedTables(props: Props) {
   const classes = useStyles();
     const { className, funds } = props
+    const convertDate = (date: string) => {
+        const manipulatedDate = date.split('')
+        if (manipulatedDate.length) {
+            manipulatedDate.splice(4,0, '-')
+            manipulatedDate.splice(7,0, '-')
+        }
+        date = ''
+        manipulatedDate.forEach(item => {
+            date = date + item.toString()
+        })
+        console.log(date)
+        return date
+    }
   return (
     <TableContainer component={Paper} className={className}>
       <Table className={classes.table} aria-label="customized table">
@@ -77,7 +91,7 @@ export default function CustomizedTables(props: Props) {
               </StyledTableCell>
               <StyledTableCell align="right">{fund.share_class_name}</StyledTableCell>
               <StyledTableCell align="right">{fund.subfund_name}</StyledTableCell>
-              <StyledTableCell align="right">{fund.date}</StyledTableCell>
+              <StyledTableCell align="right">{moment(convertDate(fund.date.toString())).format("MMM Do YYYY")}</StyledTableCell>
               <StyledTableCell align="right">{fund.nb_alerts}</StyledTableCell>
             </StyledTableRow>
           ))}

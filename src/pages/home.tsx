@@ -57,7 +57,7 @@ const mapStateToProps = (state: RootState) => ({
 const Home = (props: Props) => {
     const classes  = useStyles()
     const { getFunds, funds } = props
-    console.log(typeof funds);
+    console.log(funds);
     
     
     useEffect(() => {

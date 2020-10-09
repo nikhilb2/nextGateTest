@@ -13,13 +13,15 @@ function* getFunds() {
 
     const getResult = async (): Promise<Success | Fail> => {
         try {
-           const data = await firebase.database().ref('data').orderByKey().limitToFirst(10).once('value').then(snap => 
+           const data = await firebase.database().ref('data').startAt('1000').orderByKey().limitToFirst(20).once('value').then(snap => 
                snap.toJSON()
                )
            //    console.log(data);
                
             return data as Success
         } catch(err) {
+            console.log(err);
+            
             return {err: 'failed'} as Fail
         }
     }
