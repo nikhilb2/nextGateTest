@@ -18,6 +18,7 @@ export interface FundState {
     funds: Fund[] | null
     skip: number
     getMoreFundsError: string | null
+    keyword: string | null
 }
 
 
@@ -26,7 +27,8 @@ export interface FundState {
 
 
 export interface GetFundsAction {
-    type: typeof actions.GET_FUNDS
+    type: typeof actions.GET_FUNDS,
+    keyword?: string
   }
   
   export interface GetFundsSuccessAction {

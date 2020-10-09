@@ -77,6 +77,7 @@ export default function CustomizedTables(props: Props) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Fund name</StyledTableCell>
+            <StyledTableCell align="right">Index</StyledTableCell>
             <StyledTableCell align="right">Class name</StyledTableCell>
             <StyledTableCell align="right">Subfund Name</StyledTableCell>
             <StyledTableCell align="right">Date</StyledTableCell>
@@ -84,11 +85,12 @@ export default function CustomizedTables(props: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {funds && funds.map((fund) => (
+          {funds && funds.map((fund: Fund, index: number) => (
             <StyledTableRow key={fund.index}>
               <StyledTableCell component="th" scope="row">
                 {fund.fund_name}
               </StyledTableCell>
+              <StyledTableCell align="right">{fund.index}</StyledTableCell>
               <StyledTableCell align="right">{fund.share_class_name}</StyledTableCell>
               <StyledTableCell align="right">{fund.subfund_name}</StyledTableCell>
               <StyledTableCell align="right">{moment(convertDate(fund.date.toString())).format("MMM Do YYYY")}</StyledTableCell>

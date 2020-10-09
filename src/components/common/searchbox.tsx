@@ -50,11 +50,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   className?: string
+  onChange?(keyword: string): void
 }
 
 const Searchbar = (props: Props) => {
   const classes = useStyles()
-  const { className } = props
+  const { className, onChange } = props
  // const { filterApi } = props
   return (
     <div className={`${classes.search} ${className}`} >
@@ -68,7 +69,11 @@ const Searchbar = (props: Props) => {
           input: classes.inputInput,
         }}
         inputProps={{ 'aria-label': 'search' }}
-        onChange={(e) => {}}
+        onChange={(e) => {
+          if (onChange) {
+            onChange(e.target.value)
+          }
+        }}
       />
     </div>
   )

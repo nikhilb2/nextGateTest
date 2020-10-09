@@ -6,7 +6,8 @@ const initialState: FundState = {
     funds: null,
     getFundsError: null,
     skip: 0,
-    getMoreFundsError: null
+    getMoreFundsError: null,
+    keyword: null
 }
 
 const fundReducer = (
@@ -16,6 +17,7 @@ const fundReducer = (
     switch (action.type) {
         case actions.GET_FUNDS:
             return Object.assign({}, state, {
+
                 gettingFunds: true,
                 getFundsError: null
             })
@@ -37,12 +39,16 @@ const fundReducer = (
                 getMoreFundsError: null
             })
         case actions.GET_MORE_FUNDS_SUCCESS:
-            let oldFunds: Fund[]  = []
-            let newFunds = (action as GetMoreFundsSuccessAction).funds
+            let oldFunds: Fund[] = []
+            const newFunds: Fund[] | null | undefined= (action as GetMoreFundsSuccessAction).funds
             if (state.funds) {
-                oldFunds = Object.assign(state.funds, newFunds)
+                oldFunds = [...state.funds]
+                oldFunds.push(...newFunds)
             }
-
+            console.log('oldFunds');
+            console.log(oldFunds);
+            console.log(oldFunds);
+            
             return Object.assign({}, state, {
                 gettingFunds: false,
                 getMoreFundsError: null,

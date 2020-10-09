@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState, AppDispatch } from 'configureStore'
-import { getFunds } from 'redux/fund/actions'
+import { getFunds, getMoreFunds } from 'redux/fund/actions'
 import Header from 'components/headers/header'
 import Title from 'components/common/title'
 import { makeStyles } from '@material-ui/core/styles'
@@ -9,6 +9,7 @@ import theme from 'theme'
 import { Box, CssBaseline } from '@material-ui/core'
 import Searchbox from 'components/common/searchbox'
 import Table from 'components/common/table'
+import InfiniteScrollComponent from 'components/common/infiniteScroll'
 
 const useStyles = makeStyles({
     root: {
@@ -43,7 +44,8 @@ const mapStateToProps = (state: RootState) => ({
   })
   
   const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    getFunds: () => dispatch(getFunds())
+    getFunds: (keyword?: string) => dispatch(getFunds(keyword)),
+    getMoreFunds: () => dispatch(getMoreFunds())
   })
   
   const connector = connect(mapStateToProps, mapDispatchToProps)
@@ -56,7 +58,7 @@ const mapStateToProps = (state: RootState) => ({
   }
 const Home = (props: Props) => {
     const classes  = useStyles()
-    const { getFunds, funds } = props
+    const { getFunds, funds, getMoreFunds } = props
     console.log(funds);
     
     
@@ -72,10 +74,12 @@ const Home = (props: Props) => {
             <Header />
             <Title title="Test project: Sample data CRUD"  />
             <Box className={classes.searchBox}>
-                <Searchbox  />
+                <Searchbox onChange={(text) => getFunds(text) }  />
             </Box>
             </Box>
-            <Table className={classes.table} funds={funds} />
+            <InfiniteScrollComponent getMoreFunds={getMoreFunds} funds={funds}>
+                <Table className={classes.table} funds={funds} />
+            </InfiniteScrollComponent>
         </Box>
     )
 }

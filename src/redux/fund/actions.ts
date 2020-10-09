@@ -1,8 +1,9 @@
 import { actions } from './constants'
 import { Fund } from '../../apiTypes'
 
-export const getFunds = () => ({
-    type: actions.GET_FUNDS
+export const getFunds = (keyword?: string) => ({
+    type: actions.GET_FUNDS,
+    keyword
 })
 
 export const getFundsSuccess = (funds: Fund[]) => ({
