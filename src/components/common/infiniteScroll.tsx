@@ -1,9 +1,9 @@
-import { Fund } from 'apiTypes'
+import { Fund, FundName } from 'apiTypes'
 import React, { ReactNode } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 //import { Fn } from '@types/react-infinite-scroll-component'
 interface Props {
-    funds?: Fund[] | null
+    funds?: FundName[] | null
     getMoreFunds?(): void
     children?: ReactNode
 }

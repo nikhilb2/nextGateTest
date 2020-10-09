@@ -11,6 +11,12 @@ export type Fund = {
     nb_alerts: number
 }
 
+export type FundName = {
+    id: string
+    name: string
+    classes: string[]
+    subfunds: string[]
+}
 
 export type Success = Object | null
 

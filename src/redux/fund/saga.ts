@@ -4,7 +4,7 @@ import { actions, FundState, GetFundsAction } from './constants'
 import { getFundsSuccess, getFundsFailed, getMoreFundsSuccess, getMoreFundsFailed } from './actions'
 import { call, put, all, takeLatest, select } from 'redux-saga/effects'
 import firebase from 'firstoreConfig'
-import { Success, Fail, Fund } from 'apiTypes'
+import { Success, Fail, Fund, FundName } from 'apiTypes'
 import { RootState } from 'configureStore'
 
 const { GET_FUNDS, GET_MORE_FUNDS } = actions
@@ -17,7 +17,7 @@ function* getFunds(action: GetFundsAction) {
     const getResult = async (): Promise<Success | Fail> => {
         try {
             if (!action.keyword) {
-                const data = await firebase.database().ref('data').orderByKey().limitToFirst(20).once('value').then(snap => 
+                const data = await firebase.database().ref('fundsid').orderByKey().limitToFirst(20).once('value').then(snap => 
                     snap.toJSON()
                     )
                     return data as Success
@@ -44,7 +44,7 @@ function* getFunds(action: GetFundsAction) {
     result = Object.values(result)
     
     if (result && !result.err) {
-        yield put(getFundsSuccess(result as Fund[]))
+        yield put(getFundsSuccess(result as FundName[]))
     } else {
         yield put(getFundsFailed(result.err))
     }

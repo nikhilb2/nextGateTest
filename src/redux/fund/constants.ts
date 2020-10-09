@@ -1,4 +1,4 @@
-import { Fund } from '../../apiTypes'
+import { Fund, FundName } from '../../apiTypes'
 
 // actions
 export const actions = {
@@ -15,7 +15,7 @@ export const actions = {
 export interface FundState {
     gettingFunds: boolean
     getFundsError: string | null
-    funds: Fund[] | null
+    funds: FundName[] | null
     skip: number
     getMoreFundsError: string | null
     keyword: string | null
@@ -33,7 +33,7 @@ export interface GetFundsAction {
   
   export interface GetFundsSuccessAction {
     type: typeof actions.GET_FUNDS_SUCCESS
-    funds?: Fund[] | null
+    funds?: FundName[] | null
   }
   
   export interface GetFundsFailedAction {

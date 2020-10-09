@@ -1,0 +1,44 @@
+{
+    "fundsid": {
+        "fund1": {
+            "id": "three_aces",
+            "name": "Three aces",
+            "classes": ["class_a", "class_b"],
+            "subfunds": ["high_volatile", "low_volatile"]
+        },
+        "fund2": {
+            "id": "one_23",
+            "name": "One 23",
+            "classes": ["class_a", "class_b", "class_c"],
+            "subfunds": ["high_volatile", "low_volatile"]  
+        },
+        "fund3": {
+            "id": "twenty_23",
+            "name": "Twenty 23",
+            "classes": ["class_b", "class_c"],
+            "subfunds": ["high_volatile", "low_volatile"] 
+                
+        }
+    },
+    "funds": {
+        "funds1": {
+            "id": "three_aces-class_a",
+            "fundid": "three_aces",
+            "subfund": "Highly volatile",
+            "class": "Class B",
+            "date": 20200504,
+            "report_status": "False",
+            "nb_alerts": 0
+        },
+        "funds2": {
+            "id": "three_aces-class_b",
+            "fundid": "three_aces",
+            "subfund": "Highly volatile",
+            "class": "Class B",
+            "date": 20200504,
+            "report_status": "False",
+            "nb_alerts": 0
+        }
+    }
+
+}

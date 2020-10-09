@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState, AppDispatch } from 'configureStore'
 import { getFunds, getMoreFunds } from 'redux/fund/actions'
@@ -10,6 +10,7 @@ import { Box, CssBaseline } from '@material-ui/core'
 import Searchbox from 'components/common/searchbox'
 import Table from 'components/common/table'
 import InfiniteScrollComponent from 'components/common/infiniteScroll'
+import { FundName } from 'apiTypes'
 
 const useStyles = makeStyles({
     root: {
@@ -59,8 +60,8 @@ const mapStateToProps = (state: RootState) => ({
 const Home = (props: Props) => {
     const classes  = useStyles()
     const { getFunds, funds, getMoreFunds } = props
-    console.log(funds);
     
+    const [ selectedFund, selectFund] = useState<FundName | null>(null)
     
     useEffect(() => {
         getFunds()
@@ -77,9 +78,11 @@ const Home = (props: Props) => {
                 <Searchbox onChange={(text) => getFunds(text) }  />
             </Box>
             </Box>
-            <InfiniteScrollComponent getMoreFunds={getMoreFunds} funds={funds}>
-                <Table className={classes.table} funds={funds} />
-            </InfiniteScrollComponent>
+            {!selectedFund ? 
+                <Table className={classes.table} funds={funds} onSelect={(item: FundName)  => selectFund(item)} />
+                : 
+                <p>{JSON.stringify(selectedFund)}</p>
+            }
         </Box>
     )
 }

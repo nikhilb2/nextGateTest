@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Fund } from 'apiTypes';
+import { FundName } from 'apiTypes';
 import moment from 'moment'
 
 const StyledTableCell = withStyles((theme: Theme) =>
@@ -53,11 +53,12 @@ const useStyles = makeStyles({
 
 interface Props {
     className?: string
-    funds?: Fund[] | null
+    funds?: FundName[] | null
+    onSelect?(item: FundName): void
 }
 export default function CustomizedTables(props: Props) {
   const classes = useStyles();
-    const { className, funds } = props
+    const { className, funds, onSelect } = props
     const convertDate = (date: string) => {
         const manipulatedDate = date.split('')
         if (manipulatedDate.length) {
@@ -76,25 +77,23 @@ export default function CustomizedTables(props: Props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Fund name</StyledTableCell>
-            <StyledTableCell align="right">Index</StyledTableCell>
-            <StyledTableCell align="right">Class name</StyledTableCell>
-            <StyledTableCell align="right">Subfund Name</StyledTableCell>
-            <StyledTableCell align="right">Date</StyledTableCell>
-            <StyledTableCell align="right">Alerts</StyledTableCell>
+            <StyledTableCell>Index</StyledTableCell>
+            <StyledTableCell align="right">Fund naem</StyledTableCell>
+            <StyledTableCell align="right">Fund id</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {funds && funds.map((fund: Fund, index: number) => (
-            <StyledTableRow key={fund.index}>
+          {funds && funds.map((fund: FundName, index: number) => (
+            <StyledTableRow key={fund.name} onClick={() => {
+                if (onSelect) {
+                    onSelect(fund)
+                }
+            } }>
               <StyledTableCell component="th" scope="row">
-                {fund.fund_name}
+                {index}
               </StyledTableCell>
-              <StyledTableCell align="right">{fund.index}</StyledTableCell>
-              <StyledTableCell align="right">{fund.share_class_name}</StyledTableCell>
-              <StyledTableCell align="right">{fund.subfund_name}</StyledTableCell>
-              <StyledTableCell align="right">{moment(convertDate(fund.date.toString())).format("MMM Do YYYY")}</StyledTableCell>
-              <StyledTableCell align="right">{fund.nb_alerts}</StyledTableCell>
+              <StyledTableCell align="right">{fund.name}</StyledTableCell>
+              <StyledTableCell align="right">{fund.id}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
