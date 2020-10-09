@@ -1,13 +1,13 @@
 
-import { actions, FundState, GetFundsAction } from './constants'
+import { actions, FundState, GetFundsAction, GetFundsByClassAction } from './constants'
 
-import { getFundsSuccess, getFundsFailed, getMoreFundsSuccess, getMoreFundsFailed } from './actions'
+import { getFundsSuccess, getFundsFailed, getMoreFundsSuccess, getMoreFundsFailed, getFundsByClassSuccess, getFundsByClassFailed } from './actions'
 import { call, put, all, takeLatest, select } from 'redux-saga/effects'
 import firebase from 'firstoreConfig'
 import { Success, Fail, Fund, FundName } from 'apiTypes'
 import { RootState } from 'configureStore'
 
-const { GET_FUNDS, GET_MORE_FUNDS } = actions
+const { GET_FUNDS, GET_MORE_FUNDS, GET_FUNDS_BY_CLASS } = actions
 
 const getFundSkip = (state:RootState ) => state.fundReducer.funds?.length
 
@@ -47,6 +47,52 @@ function* getFunds(action: GetFundsAction) {
         yield put(getFundsSuccess(result as FundName[]))
     } else {
         yield put(getFundsFailed(result.err))
+    }
+
+    
+
+}
+
+
+function* getFundsByClass(action: GetFundsByClassAction) {
+
+    console.log(action);
+    
+    const getResult = async (): Promise<Success | Fail> => {
+        try {
+
+                const data = await firebase.database().ref('funds').orderByChild('id').equalTo(action.id).limitToFirst(20).once('value').then(snap => 
+                    snap.toJSON()
+                    )
+                    return data as Success
+    
+           //    console.log(data);
+               
+            
+        } catch(err) {
+            console.log(err);
+            
+            return {err: 'failed'} as Fail
+        }
+    }
+
+    
+    let result = yield call<typeof getResult>(getResult)
+console.log(result);
+
+    if (result) {
+        result = Object.values(result)
+    } else {
+        result  = []
+    }
+
+    console.log('actual funds');
+    console.log(result);
+    
+    if (result && !result.err) {
+        yield put(getFundsByClassSuccess(result as Fund[]))
+    } else {
+        yield put(getFundsByClassFailed(result.err))
     }
 
     
@@ -94,10 +140,14 @@ function* getFundsSaga() {
 function* getMoreFundsSaga() {
     yield takeLatest(GET_MORE_FUNDS, getMoreFunds)
   }
+    
+function* getFundsByClassSaga() {
+    yield takeLatest(GET_FUNDS_BY_CLASS, getFundsByClass)
+  }
   
   
   function* mainSaga() {
-    yield all([call(getFundsSaga), call(getMoreFundsSaga)])
+    yield all([call(getFundsSaga), call(getMoreFundsSaga), call(getFundsByClassSaga)])
   }
   
   export default mainSaga

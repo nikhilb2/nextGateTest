@@ -1,5 +1,5 @@
 import { Fund, FundName } from 'apiTypes'
-import { actions, FundState, GetFundsAction, GetFundsSuccessAction, GetFundsFailedAction, GetMoreFundsSuccessAction, GetFundsActionTypes, GetMoreFundsFailedAction } from './constants'
+import { actions, FundState, GetFundsAction, GetFundsSuccessAction, GetFundsFailedAction, GetMoreFundsSuccessAction, GetFundsActionTypes, GetMoreFundsFailedAction, GetFundsByClassSuccessAction, GetFundsByClassFailedAction } from './constants'
 
 const initialState: FundState = {
     gettingFunds: false,
@@ -7,7 +7,10 @@ const initialState: FundState = {
     getFundsError: null,
     skip: 0,
     getMoreFundsError: null,
-    keyword: null
+    keyword: null,
+    gettingFundsByClass: false,
+    fundsByClass: null,
+    getFundsByClassError: null
 }
 
 const fundReducer = (
@@ -33,6 +36,29 @@ const fundReducer = (
             //funds: (action as GetFundsSuccessAction).funds,
             getFundsError: (action as GetFundsFailedAction).error
         })
+        case actions.GET_FUNDS_BY_CLASS: {
+            return Object.assign({}, state, {
+                gettingFundsByClass: true,
+                getFundsByClassError: null
+            })
+        }
+        case actions.GET_FUNDS_BY_CLASS_SUCCESS: {
+            return Object.assign({}, state, {
+                gettingFundsByClass: false,
+                getFundsByClassError: null,
+                fundsByClass: (action as GetFundsByClassSuccessAction).funds
+            })
+        }
+        case actions.GET_FUNDS_BY_CLASS_FAILED: {
+            return Object.assign({}, state, {
+                gettingFundsByClass: false,
+                getFundsByClassError: (action as GetFundsByClassFailedAction).error
+            })
+        }
+
+
+
+
         /*
         case actions.GET_MORE_FUNDS:
             return Object.assign({}, state, {

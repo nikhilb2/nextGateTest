@@ -14,6 +14,23 @@ export const getFundsFailed = (error: string) => ({
     type: actions.GET_FUNDS_FAILED,
     error
 })
+
+export const getFundsByClass = (id?: string) => ({
+    type: actions.GET_FUNDS_BY_CLASS,
+    id
+})
+
+export const getFundsByClassSuccess = (funds: Fund[]) => ({
+    type: actions.GET_FUNDS_BY_CLASS_SUCCESS,
+    funds
+})
+export const getFundsByClassFailed = (error: string) => ({
+    type: actions.GET_FUNDS_BY_CLASS_FAILED,
+    error
+})
+
+
+
 export const getMoreFunds = () => ({
     type: actions.GET_MORE_FUNDS
 })

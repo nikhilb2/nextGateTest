@@ -3,25 +3,61 @@
         "fund1": {
             "id": "three_aces",
             "name": "Three aces",
-            "classes": ["class_a", "class_b"],
+            "classes": [
+                {
+                    "id": "class_a",
+                    "name": "Class_A"
+                },
+                {
+                    "id": "class_b",
+                    "name": "Class_B"
+                },
+                {
+                    "id": "class_c",
+                    "name": "Class_C"
+                }
+            ],
             "subfunds": ["high_volatile", "low_volatile"]
         },
         "fund2": {
             "id": "one_23",
             "name": "One 23",
-            "classes": ["class_a", "class_b", "class_c"],
+            "classes": [
+                {
+                    "id": "class_a",
+                    "name": "Class_A"
+                },
+                {
+                    "id": "class_b",
+                    "name": "Class_B"
+                },
+                {
+                    "id": "class_c",
+                    "name": "Class_C"
+                }
+            ],
             "subfunds": ["high_volatile", "low_volatile"]  
         },
         "fund3": {
             "id": "twenty_23",
             "name": "Twenty 23",
-            "classes": ["class_b", "class_c"],
+            "classes": [
+                {
+                    "id": "class_b",
+                    "name": "Class_B"
+                },
+                {
+                    "id": "class_c",
+                    "name": "Class_C"
+                }
+            ],
             "subfunds": ["high_volatile", "low_volatile"] 
                 
         }
     },
     "funds": {
         "funds1": {
+            "name": "Three aces",
             "id": "three_aces-class_a",
             "fundid": "three_aces",
             "subfund": "Highly volatile",
@@ -31,6 +67,7 @@
             "nb_alerts": 0
         },
         "funds2": {
+            "name": "Three aces",
             "id": "three_aces-class_b",
             "fundid": "three_aces",
             "subfund": "Highly volatile",

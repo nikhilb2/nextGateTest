@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState, AppDispatch } from 'configureStore'
-import { getFunds, getMoreFunds } from 'redux/fund/actions'
+import { getFunds, getFundsByClass, getMoreFunds } from 'redux/fund/actions'
 import Header from 'components/headers/header'
 import Title from 'components/common/title'
 import { makeStyles } from '@material-ui/core/styles'
@@ -11,6 +11,7 @@ import Searchbox from 'components/common/searchbox'
 import Table from 'components/common/table'
 import InfiniteScrollComponent from 'components/common/infiniteScroll'
 import { FundName } from 'apiTypes'
+import FundDetails from 'components/common/fundDetails'
 
 const useStyles = makeStyles({
     root: {
@@ -41,12 +42,14 @@ const useStyles = makeStyles({
 })
 
 const mapStateToProps = (state: RootState) => ({
-    funds: state.fundReducer.funds
+    funds: state.fundReducer.funds,
+    fundsByClass: state.fundReducer.fundsByClass
   })
   
   const mapDispatchToProps = (dispatch: AppDispatch) => ({
     getFunds: (keyword?: string) => dispatch(getFunds(keyword)),
-    getMoreFunds: () => dispatch(getMoreFunds())
+    getMoreFunds: () => dispatch(getMoreFunds()),
+    getFundsByClass: (id: string) => dispatch(getFundsByClass(id))
   })
   
   const connector = connect(mapStateToProps, mapDispatchToProps)
@@ -59,7 +62,7 @@ const mapStateToProps = (state: RootState) => ({
   }
 const Home = (props: Props) => {
     const classes  = useStyles()
-    const { getFunds, funds, getMoreFunds } = props
+    const { getFunds, funds, getMoreFunds, getFundsByClass, fundsByClass } = props
     
     const [ selectedFund, selectFund] = useState<FundName | null>(null)
     
@@ -69,7 +72,6 @@ const Home = (props: Props) => {
     return(
         <Box style={{backgroundColor: '#ffffff'}}
          >
-
              <Box className={classes.headerContainer}>
              <CssBaseline/>
             <Header />
@@ -81,8 +83,34 @@ const Home = (props: Props) => {
             {!selectedFund ? 
                 <Table className={classes.table} funds={funds} onSelect={(item: FundName)  => selectFund(item)} />
                 : 
-                <p>{JSON.stringify(selectedFund)}</p>
+                <FundDetails data={selectedFund} onClassSelect={(id: string) => getFundsByClass(id)} />
             }
+            {fundsByClass?.map(fund => <div key={fund.id}>
+                <p>
+                    {fund.name}
+                </p> 
+                  <p>
+                    {fund.id}
+                </p>
+                <p>
+                    {fund.date}
+                </p>
+                <p>
+                    {fund.class}
+                </p>
+                <p>
+                    {fund.fundid}
+                </p>
+                <p>
+                    {fund.subfund}
+                </p>
+                <p>
+                    {fund.nb_alerts}
+                </p>
+                <p>
+                    {fund.report_status}
+                </p>
+            </div>)}
         </Box>
     )
 }
