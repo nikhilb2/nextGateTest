@@ -24,12 +24,11 @@ const mapStateToProps = (state: RootState) => ({
 
   }
 const Home = (props: Props) => {
-    const { getFunds, funds } = props
-    console.log(funds);
+    const { getFunds } = props
     
     useEffect(() => {
         getFunds()
-    }, [])
+    }, [getFunds])
     return(
         <div>
             <p>
