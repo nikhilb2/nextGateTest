@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         fontSize: 'calc(.5rem + 2.7vw)',
         padding: theme.spacing(2),
         paddingTop: theme.spacing(10),
-        letterSpacing: -1.5,
+        letterSpacing: -.2 ,
         fontWeight: 100
     }
 })

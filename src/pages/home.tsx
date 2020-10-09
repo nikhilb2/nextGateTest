@@ -21,6 +21,9 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
+        maxWidth: '70vw',
+        marginRight: 'auto',
+        marginLeft: 'auto'
     }
 })
 
