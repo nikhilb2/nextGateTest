@@ -1,26 +1,26 @@
 
-import { actions, GetFundsAction } from './constants'
+import { actions } from './constants'
 
 import { getFundsSuccess, getFundsFailed } from './actions'
 import { call, put, all, takeLatest } from 'redux-saga/effects'
 import firebase from 'firstoreConfig'
-
+import { Success, Fail } from 'apiTypes'
 
 const { GET_FUNDS } = actions
 
 
 function* getFunds() {
 
-    const getResult = async (): Promise<any> => {
+    const getResult = async (): Promise<Success | Fail> => {
         try {
            const data = await firebase.database().ref('data').orderByKey().limitToFirst(10).once('value').then(snap => 
                snap.toJSON()
                )
            //    console.log(data);
                
-            return data
+            return data as Success
         } catch(err) {
-            return {err: 'failed'}
+            return {err: 'failed'} as Fail
         }
     }
 
@@ -30,7 +30,7 @@ function* getFunds() {
     if (result && !result.err) {
         yield put(getFundsSuccess(result))
     } else {
-        yield put(getFundsFailed('failed'))
+        yield put(getFundsFailed(result.err))
     }
 
     

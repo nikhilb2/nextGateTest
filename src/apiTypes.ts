@@ -11,3 +11,9 @@ export type Fund = {
     nb_alerts: number
 }
 
+
+export type Success = Object | null
+
+export type Fail = {
+    err : string
+}
