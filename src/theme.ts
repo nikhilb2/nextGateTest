@@ -35,13 +35,6 @@ const theme = createMuiTheme({
       main: red.A400,
     },
   },
-  overrides: {
-    MuiButton: {
-      root: {
-        borderRadius: 25,
-      },
-    },
-  },
   spacing: 10
 })
 export default theme

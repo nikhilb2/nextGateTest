@@ -5,7 +5,7 @@ import theme from 'theme'
 const useStyles = makeStyles({
     container: {
         minHeight: theme.spacing(10),
-        alignItems: 'center',
+        alignItems: 'center'
     },
     title: {
         textAlign: 'center',

@@ -10,7 +10,7 @@ import theme from 'theme';
 const useStyles = makeStyles({
     container: {
         backgroundColor: theme.palette.primary.main,
-        boxShadow: 'none'
+        boxShadow: 'none',
     },
     title: {
         letterSpacing: -.24,
@@ -20,7 +20,6 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '100%'
 
     }
 })
@@ -29,7 +28,7 @@ const Header = () => {
     return(
         <AppBar className={classes.container} >
         <Toolbar className={classes.toolBar}>
-          <Typography variant="h5" className={classes.title}>NextGateTech Firebase Test</Typography>
+          <Typography  className={classes.title}>NextGateTech Firebase Test</Typography>
         </Toolbar>
       </AppBar>
     )
