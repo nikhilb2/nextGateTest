@@ -14,13 +14,13 @@ const FundDetails = (props: Props) => {
     return(
         <div>
             Name: {data?.name}
-            {data?.classes ? Object.values(data.classes).map((item: ClassType) => 
-                <div key={item.id} style={{padding: 10, fontWeight: 600}} onClick={() => {
+            {data?.subfunds ? Object.values(data.subfunds).map((item: string, i: number) => 
+                <div key={item} style={{padding: 10, fontWeight: 600}} onClick={() => {
                     if (onClassSelect) {
-                        onClassSelect(data.id +"-"+item.id)
+                        onClassSelect(data.id +"-"+item)
                     }
                 }}>
-                    {item.name}
+                    {item}
                 </div>
                 ) : null}
         </div>

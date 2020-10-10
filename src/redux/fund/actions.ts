@@ -1,5 +1,5 @@
 import { actions } from './constants'
-import { Fund, FundName } from '../../apiTypes'
+import { Fund, FundName, SubFund } from 'apiTypes'
 
 export const getFunds = (keyword?: string) => ({
     type: actions.GET_FUNDS,
@@ -43,3 +43,22 @@ export const getMoreFundsFailed = (error: string) => ({
     type: actions.GET_MORE_FUNDS_FAILED,
     error
 })
+
+
+
+
+export const getSubFunds = (id: string) => ({
+    type: actions.GET_SUBFUNDS,
+    id
+})
+
+export const getSubFundsSuccess = (subFunds: SubFund[]) => ({
+    type: actions.GET_SUBFUNDS_SUCCESS,
+    subFunds
+})
+export const getSubFundsFailed = (error: string) => ({
+    type: actions.GET_SUBFUNDS_FAILED,
+    error
+})
+
+

@@ -3,56 +3,27 @@
         "fund1": {
             "id": "three_aces",
             "name": "Three aces",
-            "classes": [
-                {
-                    "id": "class_a",
-                    "name": "Class_A"
-                },
-                {
-                    "id": "class_b",
-                    "name": "Class_B"
-                },
-                {
-                    "id": "class_c",
-                    "name": "Class_C"
-                }
-            ],
+            "classes": [ "class_a", "class_b", "class_c" ],
             "subfunds": ["high_volatile", "low_volatile"]
         },
         "fund2": {
             "id": "one_23",
             "name": "One 23",
-            "classes": [
-                {
-                    "id": "class_a",
-                    "name": "Class_A"
-                },
-                {
-                    "id": "class_b",
-                    "name": "Class_B"
-                },
-                {
-                    "id": "class_c",
-                    "name": "Class_C"
-                }
-            ],
+            "classes": [ "class_a", "class_b", "class_c" ],
             "subfunds": ["high_volatile", "low_volatile"]  
         },
         "fund3": {
             "id": "twenty_23",
             "name": "Twenty 23",
-            "classes": [
-                {
-                    "id": "class_b",
-                    "name": "Class_B"
-                },
-                {
-                    "id": "class_c",
-                    "name": "Class_C"
-                }
-            ],
+            "classes": [ "class_a", "class_b", "class_c" ],
             "subfunds": ["high_volatile", "low_volatile"] 
                 
+        }
+    },
+    "subfundsClasses": {
+        "fundid+subfundId": {
+            "id": "three_aces-high_volatile",
+            "classes": ["class_a", "class_b"]
         }
     },
     "funds": {
