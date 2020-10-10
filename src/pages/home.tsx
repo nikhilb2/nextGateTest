@@ -37,7 +37,15 @@ const useStyles = makeStyles({
         paddingRight: theme.spacing(2),
         paddingLeft: theme.spacing(2),
         boxShadow: 'none',
-        marginTop: theme.spacing(3)
+        marginTop: theme.spacing(3),
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        [theme.breakpoints.down('sm')]: {
+            maxWidth: '80%',
+          },
+          [theme.breakpoints.up('md')]: {
+            maxWidth: '60%'
+          }
     }
 })
 
@@ -68,7 +76,7 @@ const Home = (props: Props) => {
     
     const [ selectedFund, selectFund] = useState<FundName | null>(null)
     
-    console.log(subFunds);
+    console.log(fundsByClass);
     
 
     useEffect(() => {
@@ -85,18 +93,30 @@ const Home = (props: Props) => {
                 <Searchbox onChange={(text) => getFunds(text) }  />
             </Box>
             </Box>
-            {!selectedFund ? 
+            {fundsByClass ? fundsByClass?.map(fund => <div key={fund.id}>
+                <p>
+                    {fund.name}
+                </p>
+                <p>
+                    {fund.report_status ? 'Ready' : 'Pending'}
+                </p>
+                <p>
+                    {fund.subfund}
+                </p>
+                <p>
+                    {fund.date}
+                </p>
+            </div> ) : !selectedFund ? 
                 <Table className={classes.table} funds={funds} onSelect={(item: FundName)  => selectFund(item)} />
-                : 
+                : subFunds ? subFunds && subFunds[0] && Object.values(subFunds[0].classes).map((item) => (
+                    <div key={item} style={{paddingLeft: 20, fontWeight: 600}} onClick={() => getFundsByClass(subFunds[0].id + "-" + item)}>
+                        <p>
+                            {item}
+                        </p>
+                    </div>
+                ) ) : 
                 <FundDetails data={selectedFund} onClassSelect={(id: string) => getSubFunds(id)} />
             }
-            { subFunds && subFunds[0] && Object.values(subFunds[0].classes).map((item) => (
-                <div key={item}>
-                    <p>
-                        {item}
-                    </p>
-                </div>
-            ) )}
         </Box>
     )
 }

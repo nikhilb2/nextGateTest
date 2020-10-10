@@ -59,6 +59,7 @@ interface Props {
 export default function CustomizedTables(props: Props) {
   const classes = useStyles();
     const { className, funds, onSelect } = props
+    console.log(funds)
     const convertDate = (date: string) => {
         const manipulatedDate = date.split('')
         if (manipulatedDate.length) {
@@ -77,23 +78,21 @@ export default function CustomizedTables(props: Props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Index</StyledTableCell>
-            <StyledTableCell align="right">Fund naem</StyledTableCell>
-            <StyledTableCell align="right">Fund id</StyledTableCell>
+            <StyledTableCell>Fund name</StyledTableCell>
+            <StyledTableCell align="right">Subfunds</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {funds && funds.map((fund: FundName, index: number) => (
-            <StyledTableRow key={fund.name} onClick={() => {
+            <StyledTableRow style={{cursor: 'pointer'}} key={fund.name} onClick={() => {
                 if (onSelect) {
                     onSelect(fund)
                 }
             } }>
               <StyledTableCell component="th" scope="row">
-                {index}
+                {fund.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{fund.name}</StyledTableCell>
-              <StyledTableCell align="right">{fund.id}</StyledTableCell>
+              <StyledTableCell align="right">{Object.values(fund.subfunds).length}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
