@@ -14,7 +14,6 @@ import theme from 'theme'
 import { Box, CssBaseline } from '@material-ui/core'
 import Searchbox from 'components/common/searchbox'
 import Table from 'components/common/table'
-import InfiniteScrollComponent from 'components/common/infiniteScroll'
 import { FundName, Fund, SubFund } from 'apiTypes'
 import FundDetails from 'components/common/fundDetails'
 
@@ -85,12 +84,26 @@ const Home = (props: Props) => {
   } = props
 
   const [selectedFund, selectFund] = useState<FundName | null>(null)
+  const [ filteredFunds, setFilteredFunds ] = useState<FundName[] | null>(null)
+  const filterFunds = (keyword: string) => {
+      if (funds) {
+        const filtered = funds.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()))
+        setFilteredFunds(filtered)
+      }
 
-  console.log(fundsByClass)
+  }
 
   useEffect(() => {
     getFunds()
   }, [getFunds])
+
+
+  useEffect(() => {
+    if (funds) {
+        setFilteredFunds(funds)
+    }
+  }, [funds])
+
   return (
     <Box style={{ backgroundColor: '#ffffff' }}>
       <Box className={classes.headerContainer}>
@@ -98,7 +111,7 @@ const Home = (props: Props) => {
         <Header />
         <Title title="Test project: Sample data CRUD" />
         <Box className={classes.searchBox}>
-          <Searchbox onChange={(text) => getFunds(text)} />
+          <Searchbox onChange={(text) => filterFunds(text) } />
         </Box>
       </Box>
       {fundsByClass ? (
@@ -113,7 +126,7 @@ const Home = (props: Props) => {
       ) : !selectedFund ? (
         <Table
           className={classes.table}
-          funds={funds}
+          funds={filteredFunds}
           onSelect={(item: FundName) => selectFund(item)}
         />
       ) : subFunds ? (
