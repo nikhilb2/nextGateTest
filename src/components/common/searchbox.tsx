@@ -56,9 +56,9 @@ interface Props {
 const Searchbar = (props: Props) => {
   const classes = useStyles()
   const { className, onChange } = props
- // const { filterApi } = props
+  // const { filterApi } = props
   return (
-    <div className={`${classes.search} ${className}`} >
+    <div className={`${classes.search} ${className}`}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>

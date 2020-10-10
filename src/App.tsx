@@ -1,21 +1,14 @@
-import React from 'react';
+import React from 'react'
+import { Route, withRouter } from 'react-router-dom'
 
-
-import configureStore from './configureStore'
-import { Provider } from 'react-redux'
 import Home from 'pages/home'
-const store = configureStore()
-
-
-
 
 const App = () => {
-
   return (
-    <Provider store={store}>
-      <Home />
-    </Provider>
-  );
+    <>
+      <Route exact path="/" component={Home} />
+    </>
+  )
 }
 
-export default App;
+export default withRouter(App)
