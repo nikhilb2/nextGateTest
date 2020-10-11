@@ -35,6 +35,6 @@ const theme = createMuiTheme({
       main: red.A400,
     },
   },
-  spacing: 10
+  spacing: 10,
 })
 export default theme

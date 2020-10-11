@@ -1,5 +1,5 @@
 import Bcrumbs from 'components/common/breadcrumbs'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { RootState, AppDispatch } from 'configureStore'
 import { connect, ConnectedProps } from 'react-redux'
 import {
@@ -7,7 +7,7 @@ import {
   getSubFunds,
   getSubFundsClasses,
 } from 'redux/fund/actions'
-import { useHistory, useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import theme from 'theme'
 import Table from 'components/common/resultTable'
@@ -70,14 +70,13 @@ const SubfundClasses = (props: Props) => {
   const { fundid, subfundid, classid } = useParams<Params>()
   const classes = useStyles()
 
-
   useEffect(() => {
     if (fundid) {
       if (!subFunds) {
         getSubFunds(fundid)
       }
     }
-  }, [getSubFunds])
+  }, [fundid, getSubFunds, subFunds])
 
   useEffect(() => {
     if (subfundid && fundid) {
@@ -85,53 +84,55 @@ const SubfundClasses = (props: Props) => {
         getSubFundsClasses(fundid + '-' + subfundid)
       }
     }
-  }, [subfundid, fundid])
-  console.log(fundsByClass)
+  }, [subfundid, fundid, getSubFundsClasses, subFundClasses])
 
   useEffect(() => {
     if (subfundid && fundid && classid) {
       getFundsByClass(fundid + '-' + subfundid + '-' + classid)
     }
-  }, [subfundid, fundid, classid])
+  }, [subfundid, fundid, classid, getFundsByClass])
 
+  const [sortedData, setSortedData] = useState<Fund[] | null>(null)
+  const [dateOrder, setDateOrder] = useState<number>(1)
+  const [reportOrder, setReportOrder] = useState<number>(1)
+  const [alertOrder, setAlertOrder] = useState<number>(1)
+  const [currentSort, setCurrentSort] = useState<SortType>('date')
 
-  const [ sortedData, setSortedData ] = useState<Fund[] | null>(null)
-  const [ dateOrder, setDateOrder ] = useState<number>(1)
-  const [ reportOrder, setReportOrder ] = useState<number>(1)
-  const [ alertOrder, setAlertOrder ] = useState<number>(1)
-  const [ currentSort, setCurrentSort ] = useState<SortType>('date')
+  const sortFunds = useCallback(
+    (type: SortType, order: number) => {
+      if (!fundsByClass) {
+        return
+      }
+      let data: Fund[] = [...fundsByClass]
+      data = data.sort((a: Fund, b: Fund) => {
+        if (a[type] > b[type]) {
+          return order
+        }
+        if (a[type] < b[type]) {
+          return -order
+        }
+        return 0
+      })
+      if (type === 'date') {
+        setDateOrder(order)
+      }
+      if (type === 'nb_alerts') {
+        setAlertOrder(order)
+      }
+      if (type === 'report_status') {
+        setReportOrder(order)
+      }
+      setCurrentSort(type)
+      setSortedData(data)
+    },
+    [fundsByClass]
+  )
+
   useEffect(() => {
     if (fundsByClass) {
-        sortFunds('date', 1)
+      sortFunds('date', 1)
     }
-  }, [fundsByClass])
-
-
-  const sortFunds = (type: SortType, order:number) => {
-    let data: Fund[] = [...fundsByClass]
-    data = data.sort((a:Fund, b: Fund) => {
-      if (a[type] > b[type]) {
-        console.log(order)
-        return order
-      }
-      if (a[type] < b[type]) {
-        console.log(order)
-        return -order
-      }
-      return 0
-    })
-    if (type === 'date' ) {
-        setDateOrder(order)
-    }
-    if (type === 'nb_alerts' ) {
-        setAlertOrder(order)
-    }
-    if (type === 'report_status' ) {
-        setReportOrder(order)
-    }
-    setCurrentSort(type)
-    setSortedData(data)
-  }
+  }, [fundsByClass, sortFunds])
 
   return (
     <div className={classes.container}>
@@ -152,7 +153,15 @@ const SubfundClasses = (props: Props) => {
         ]}
         last="Soon"
       />
-      <Table className={classes.table} data={sortedData} dateOrder={dateOrder} sortFunds={(type: SortType, order:  number) => sortFunds(type, order) } currentSort={currentSort} reportOrder={reportOrder} alertOrder={alertOrder} />
+      <Table
+        className={classes.table}
+        data={sortedData}
+        dateOrder={dateOrder}
+        sortFunds={(type: SortType, order: number) => sortFunds(type, order)}
+        currentSort={currentSort}
+        reportOrder={reportOrder}
+        alertOrder={alertOrder}
+      />
     </div>
   )
 }

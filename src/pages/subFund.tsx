@@ -60,7 +60,7 @@ const Subfund = (props: Props) => {
     if (fundid) {
       getSubFunds(fundid)
     }
-  }, [getSubFunds])
+  }, [getSubFunds, fundid])
 
   return (
     <div className={classes.container}>

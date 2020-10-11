@@ -7,7 +7,6 @@ import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import theme from 'theme'
 import Table from 'components/common/table'
-import { FundName, SubFundClasses } from 'apiTypes'
 
 const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
@@ -63,14 +62,13 @@ const SubfundClasses = (props: Props) => {
         getSubFunds(fundid)
       }
     }
-  }, [getSubFunds])
+  }, [getSubFunds, fundid, subFunds])
 
   useEffect(() => {
     if (subfundid && fundid) {
       getSubFundsClasses(fundid + '-' + subfundid)
     }
-  }, [subfundid, fundid])
-  console.log(subFundClasses)
+  }, [subfundid, fundid, getSubFundsClasses])
 
   return (
     <div className={classes.container}>

@@ -7,19 +7,16 @@ import { GetFundsActionTypes } from 'redux/fund/constants'
 const sagaMiddleware = createSagaMiddleware()
 
 const appReducer = combineReducers({
-    fundReducer
-  })
+  fundReducer,
+})
 
-  export type RootState = ReturnType<typeof appReducer>
+export type RootState = ReturnType<typeof appReducer>
 
-  const store = createStore(appReducer, applyMiddleware(sagaMiddleware))
+const store = createStore(appReducer, applyMiddleware(sagaMiddleware))
 
-  export type AppDispatch = (
-    action:  GetFundsActionTypes
-  ) => void
-
+export type AppDispatch = (action: GetFundsActionTypes) => void
 
 export default function configureStore() {
-    sagaMiddleware.run(fundSaga)
-    return store
-  }
+  sagaMiddleware.run(fundSaga)
+  return store
+}

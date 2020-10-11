@@ -14,9 +14,7 @@ import theme from 'theme'
 import { Box, CssBaseline } from '@material-ui/core'
 import Searchbox from 'components/common/searchbox'
 import Table from 'components/common/table'
-//import Table from 'components/common/tableNew'
-import { FundName, Fund, SubFund } from 'apiTypes'
-//import FundDetails from 'components/common/fundDetails'
+import { FundName } from 'apiTypes'
 
 const useStyles = makeStyles({
   root: {
@@ -76,17 +74,8 @@ type Props = PropsFromRedux & {}
 const Home = (props: Props) => {
   const { push } = useHistory()
   const classes = useStyles()
-  const {
-    getFunds,
-    funds,
-    getMoreFunds,
-    getFundsByClass,
-    getSubFunds,
-    fundsByClass,
-    subFunds,
-  } = props
+  const { getFunds, funds } = props
 
-  const [selectedFund, selectFund] = useState<FundName | null>(null)
   const [filteredFunds, setFilteredFunds] = useState<FundName[] | null>(null)
   const filterFunds = (keyword: string) => {
     if (funds) {
