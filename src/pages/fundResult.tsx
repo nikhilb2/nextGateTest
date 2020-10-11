@@ -2,7 +2,7 @@ import Bcrumbs from "components/common/breadcrumbs"
 import React, { useEffect } from "react"
 import { RootState, AppDispatch } from 'configureStore'
 import { connect, ConnectedProps } from 'react-redux'
-import { getSubFunds, getSubFundsClasses } from "redux/fund/actions"
+import { getFundsByClass, getSubFunds, getSubFundsClasses } from "redux/fund/actions"
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core"
 import theme from 'theme'
@@ -12,12 +12,14 @@ import { FundName, SubFundClasses } from "apiTypes"
 
 const mapStateToProps = (state: RootState) => ({
     subFunds: state.fundReducer.subFunds,
-    subFundClasses: state.fundReducer.subFundClasses
+    subFundClasses: state.fundReducer.subFundClasses,
+    fundsByClass: state.fundReducer.fundsByClass
   })
   
   const mapDispatchToProps = (dispatch: AppDispatch) => ({
     getSubFunds: (id: string) => dispatch(getSubFunds(id)),
-    getSubFundsClasses: (id: string) => dispatch(getSubFundsClasses(id)) 
+    getSubFundsClasses: (id: string) => dispatch(getSubFundsClasses(id)) ,
+    getFundsByClass: (id: string) => dispatch(getFundsByClass(id))
   })
   
   const connector = connect(mapStateToProps, mapDispatchToProps)
@@ -28,7 +30,8 @@ const mapStateToProps = (state: RootState) => ({
   
   type Params = {
     fundid: string
-    subfundid?: string
+    subfundid: string
+    classid: string
   }
 
 
@@ -55,8 +58,8 @@ const mapStateToProps = (state: RootState) => ({
   
 
 const SubfundClasses = (props: Props) => {
-    const { subFunds, getSubFunds, getSubFundsClasses, subFundClasses } = props
-    const { fundid, subfundid } = useParams<Params>()
+    const { subFunds, getSubFunds, getSubFundsClasses, subFundClasses, getFundsByClass, fundsByClass } = props
+    const { fundid, subfundid, classid } = useParams<Params>()
     const classes = useStyles()
     const { push } = useHistory()
     const { pathname } = useLocation()
@@ -70,10 +73,20 @@ const SubfundClasses = (props: Props) => {
     
     useEffect(() => {
       if (subfundid && fundid) {
-        getSubFundsClasses(fundid + "-" + subfundid)
+          if (!subFundClasses) {
+            getSubFundsClasses(fundid + "-" + subfundid)
+          }
+        
       }
     }, [subfundid, fundid])
-    console.log(subFundClasses)
+    console.log(fundsByClass)
+
+
+    useEffect(() => {
+        if (subfundid && fundid && classid) {
+            getFundsByClass(fundid + "-" + subfundid + "-" + classid)
+        }
+    }, [subfundid, fundid, classid])
 
     return(
         <div className={classes.container}>
@@ -83,13 +96,17 @@ const SubfundClasses = (props: Props) => {
               route: '/',
             },
             {
-              name: subFunds ? subFunds[0].name : '',
-              route: `/fund/${fundid}`
-          },
+                name: subFunds ? subFunds[0].name : '',
+                route: `/fund/${fundid}`
+            },
+            {
+                name: subFundClasses ? subFundClasses.subFund: '',
+                route: `/fund/${fundid}/${subfundid}`
+            }
           ]}
-          last={subFundClasses ? subFundClasses.subFund: ''}
+          last='Soon'
         />
-          <Table funds={subFundClasses?.classes} className={classes.table} title={subFundClasses ? `${subFundClasses.name}  -> ${subFundClasses.subFund}` : " " } onSelect={(id) => push(pathname+"/"+id)} />
+          
            
         </div>
     )

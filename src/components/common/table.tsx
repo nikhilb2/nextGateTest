@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 interface Props {
   className?: string
   funds?: FundName[] | SubFundClasses[] | null
-  onSelect?(id: string, subfund?: string): void
+  onSelect?(id: string): void
   title?: string
 }
 export default function CustomizedTables(props: Props) {
@@ -82,7 +82,7 @@ export default function CustomizedTables(props: Props) {
                 key={fund.name}
                 onClick={() => {
                   if (onSelect) {
-                    onSelect(fund.id, '')
+                    onSelect(fund.id)
                   }
                 }}
               >
