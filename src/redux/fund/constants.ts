@@ -37,6 +37,7 @@ export interface FundState {
   subFundClasses: SubFunClassesOfFund | null
   gettingSubFundClasses: boolean
   getSubFundClassesError: string | null
+  loading: boolean
 }
 
 // actions

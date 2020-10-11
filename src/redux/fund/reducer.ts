@@ -28,6 +28,7 @@ const initialState: FundState = {
   subFundClasses: null,
   gettingSubFundClasses: false,
   getSubFundClassesError: null,
+  loading: false
 }
 
 const fundReducer = (
@@ -39,23 +40,27 @@ const fundReducer = (
       return Object.assign({}, state, {
         gettingFunds: true,
         getFundsError: null,
+        loading: true
       })
     case actions.GET_FUNDS_SUCCESS:
       return Object.assign({}, state, {
         gettingFunds: false,
         funds: (action as GetFundsSuccessAction).funds,
         getFundsError: null,
+        loading: false
       })
     case actions.GET_FUNDS_FAILED:
       return Object.assign({}, state, {
         gettingFunds: false,
         //funds: (action as GetFundsSuccessAction).funds,
         getFundsError: (action as GetFundsFailedAction).error,
+        loading: false
       })
     case actions.GET_FUNDS_BY_CLASS: {
       return Object.assign({}, state, {
         gettingFundsByClass: true,
         getFundsByClassError: null,
+        loading: true
       })
     }
     case actions.GET_FUNDS_BY_CLASS_SUCCESS: {
@@ -63,18 +68,21 @@ const fundReducer = (
         gettingFundsByClass: false,
         getFundsByClassError: null,
         fundsByClass: (action as GetFundsByClassSuccessAction).funds,
+        loading: false
       })
     }
     case actions.GET_FUNDS_BY_CLASS_FAILED: {
       return Object.assign({}, state, {
         gettingFundsByClass: false,
         getFundsByClassError: (action as GetFundsByClassFailedAction).error,
+        loading: false
       })
     }
     case actions.GET_SUBFUNDS: {
       return Object.assign({}, state, {
         gettingSubfunds: true,
         getSubfundsError: null,
+        loading: true
       })
     }
     case actions.GET_SUBFUNDS_SUCCESS: {
@@ -82,18 +90,21 @@ const fundReducer = (
         gettingSubfunds: false,
         getSubfundsError: null,
         subFunds: (action as GetSubfundSuccessAction).subFunds,
+        loading: false
       })
     }
     case actions.GET_SUBFUNDS_FAILED: {
       return Object.assign({}, state, {
         gettingSubfunds: false,
         getFundsByClassError: (action as GetSubfundFailedAction).error,
+        loading: false
       })
     }
     case actions.GET_CLASSES_BY_FUNDSUBFUNDID: {
       return Object.assign({}, state, {
         gettingSubFundClasses: true,
         getSubFundClass: null,
+        loading: true
       })
     }
     case actions.GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS: {
@@ -102,6 +113,7 @@ const fundReducer = (
         getSubFundClassesError: null,
         subFundClasses: (action as GetClassesByFundSubfundSuccessAction)
           .classes,
+          loading: false
       })
     }
     case actions.GET_CLASSES_BY_FUNDSUBFUNDID_FAILED: {
@@ -109,6 +121,7 @@ const fundReducer = (
         gettingSubFundClasses: false,
         getSubFundClassesError: (action as GetClassesByFundSubfundFailedAction)
           .error,
+          loading: false
       })
     }
 

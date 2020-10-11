@@ -22,7 +22,7 @@ export default function LinearIndeterminate(props: Props) {
     const { className } = props
   return (
     <div className={`${classes.root} ${className}`}>
-      <LinearProgress color="secondary" />
+      <LinearProgress color="primary"  />
     </div>
   );
 }
