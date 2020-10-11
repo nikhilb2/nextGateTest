@@ -24,7 +24,11 @@ const App = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/fund/:fundid" component={SubFund} />
       <Route exact path="/fund/:fundid/:subfundid" component={SubfundClasses} />
-      <Route exact path="/fund/:fundid/:subfundid/:classid" component={FundResult} />
+      <Route
+        exact
+        path="/fund/:fundid/:subfundid/:classid"
+        component={FundResult}
+      />
     </>
   )
 }

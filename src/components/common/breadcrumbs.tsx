@@ -16,8 +16,8 @@ const useStyles = makeStyles({
   link: {
     textDecoration: 'none',
     color: theme.palette.primary.contrastText,
-    fontWeight: 600
-  }
+    fontWeight: 600,
+  },
 })
 
 const Bcrumbs = (props: Props) => {
@@ -27,7 +27,12 @@ const Bcrumbs = (props: Props) => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       {data?.map((item) => (
-        <Link key={item.name} color="inherit" to={item.route} className={classes.link}>
+        <Link
+          key={item.name}
+          color="inherit"
+          to={item.route}
+          className={classes.link}
+        >
           {item.name}
         </Link>
       ))}

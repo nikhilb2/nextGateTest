@@ -74,13 +74,12 @@ const Subfund = (props: Props) => {
           ]}
           last={subFunds ? subFunds[0].name : ''}
         />
-    <SubFundTable
+        <SubFundTable
           data={subFunds ? subFunds[0] : subFunds}
           className={classes.table}
           title={subFunds ? subFunds[0].name : ''}
-          onSelect={(id) =>  push(pathname+'/'+id)}
+          onSelect={(id) => push(pathname + '/' + id)}
         />
-
       </div>
     </div>
   )

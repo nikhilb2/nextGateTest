@@ -69,7 +69,7 @@ export default function SubFundTable(props: Props) {
                 key={fund.subfundId}
                 onClick={() => {
                   if (onSelect) {
-                      onSelect(fund.subfundId)
+                    onSelect(fund.subfundId)
                   }
                 }}
               >

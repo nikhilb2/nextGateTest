@@ -120,7 +120,7 @@ const Home = (props: Props) => {
         className={classes.table}
         funds={filteredFunds}
         onSelect={(id: string) => push(`fund/${id}`)}
-        title='Select fund'
+        title="Select fund"
       />
     </Box>
   )
