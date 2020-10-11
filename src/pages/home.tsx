@@ -16,7 +16,7 @@ import Searchbox from 'components/common/searchbox'
 import Table from 'components/common/table'
 //import Table from 'components/common/tableNew'
 import { FundName, Fund, SubFund } from 'apiTypes'
-import FundDetails from 'components/common/fundDetails'
+//import FundDetails from 'components/common/fundDetails'
 
 const useStyles = makeStyles({
   root: {
@@ -116,41 +116,11 @@ const Home = (props: Props) => {
           <Searchbox onChange={(text) => filterFunds(text)} />
         </Box>
       </Box>
-      {fundsByClass ? (
-        fundsByClass?.map((fund) => (
-          <div key={fund.id}>
-            <p>{fund.name}</p>
-            <p>{fund.report_status ? 'Ready' : 'Pending'}</p>
-            <p>{fund.subfund}</p>
-            <p>{fund.date}</p>
-          </div>
-        ))
-      ) : !selectedFund ? (
-        <Table
-          className={classes.table}
-          funds={filteredFunds}
-          onSelect={(id: string, subfund: string) =>
-            push(`fund/${id}/${subfund}`)
-          }
-        />
-      ) : subFunds ? (
-        subFunds &&
-        subFunds[0] &&
-        Object.values(subFunds[0].classes).map((item) => (
-          <div
-            key={item}
-            style={{ paddingLeft: 20, fontWeight: 600 }}
-            onClick={() => getFundsByClass(subFunds[0].id + '-' + item)}
-          >
-            <p>{item}</p>
-          </div>
-        ))
-      ) : (
-        <FundDetails
-          data={selectedFund}
-          onClassSelect={(id: string) => getSubFunds(id)}
-        />
-      )}
+      <Table
+        className={classes.table}
+        funds={filteredFunds}
+        onSelect={(id: string, subfund: string) => push(`fund/${id}`)}
+      />
     </Box>
   )
 }

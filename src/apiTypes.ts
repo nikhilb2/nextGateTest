@@ -9,10 +9,15 @@ export type Fund = {
         name: string
 }
 
+export type SubFundOfFund = {
+    subfundId: string
+    subfundName: string
+}
+
 export type SubFund =  {
     id: string,
     name: string,
-    classes: string[]
+    subfunds: SubFundOfFund[]
 }
 
 export type ClassType= {

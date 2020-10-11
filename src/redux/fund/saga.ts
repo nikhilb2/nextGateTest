@@ -109,6 +109,7 @@ function* getSubfunds(action: GetSubfundAction) {
                 const data = await firebase.database().ref('fundSubFunds').orderByChild('id').equalTo(action.id).once('value').then(snap => 
                     snap.toJSON()
                     )
+    
                     return data as Success
     
            //    console.log(data);
@@ -127,12 +128,14 @@ console.log(result);
 
     if (result) {
         result = Object.values(result)
+
+        result[0].subfunds = Object.values(result[0].subfunds)
     } else {
         result  = []
     }
-
     console.log('actual funds');
-    console.log(result);
+    console.log(result)
+
     
     if (result && !result.err) {
         yield put(getSubFundsSuccess(result as SubFund[]))

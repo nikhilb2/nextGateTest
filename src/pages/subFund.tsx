@@ -6,6 +6,7 @@ import { getSubFunds } from 'redux/fund/actions'
 import theme from 'theme'
 import { makeStyles } from '@material-ui/core'
 import Bcrumbs from 'components/common/breadcrumbs'
+import SubFundTable from 'components/common/SubFundsTable'
 
 const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
@@ -30,6 +31,20 @@ const useStyles = makeStyles({
   container: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2),
+  },
+  table: {
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    boxShadow: 'none',
+    marginTop: theme.spacing(3),
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '80%',
+    },
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '60%',
+    },
   },
 })
 
@@ -56,6 +71,11 @@ const Subfund = (props: Props) => {
             },
           ]}
           last={subFunds ? subFunds[0].name : ''}
+        />
+        <SubFundTable
+          data={subFunds ? subFunds[0] : subFunds}
+          className={classes.table}
+          title={subFunds ? subFunds[0].name : ''}
         />
       </div>
     </div>

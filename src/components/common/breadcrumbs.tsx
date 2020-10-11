@@ -1,5 +1,6 @@
-import { Breadcrumbs, Link, Typography } from '@material-ui/core'
+import { Breadcrumbs, Typography } from '@material-ui/core'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 interface Data {
   name: string
@@ -17,7 +18,7 @@ const Bcrumbs = (props: Props) => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       {data?.map((item) => (
-        <Link key={item.name} color="inherit" href={item.route}>
+        <Link key={item.name} color="inherit" to={item.route}>
           {item.name}
         </Link>
       ))}
