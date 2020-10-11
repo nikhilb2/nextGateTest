@@ -151,7 +151,7 @@ const SubfundClasses = (props: Props) => {
             route: `/fund/${fundid}/${subfundid}`,
           },
         ]}
-        last="Soon"
+        last={fundsByClass ? fundsByClass[0].class : ''}
       />
       <Table
         className={classes.table}

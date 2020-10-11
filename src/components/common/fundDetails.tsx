@@ -8,7 +8,6 @@ interface Props {
 
 const FundDetails = (props: Props) => {
   const { data, onClassSelect } = props
-  console.log(data)
 
   return <div>Name: {data?.name}</div>
 }
