@@ -8,10 +8,6 @@ import {
 import { FundName } from 'apiTypes'
 import Accordion from './accordion'
 
-
-
-
-
 const useStyles = makeStyles({
   table: {
     //minWidth: 700,
@@ -42,13 +38,11 @@ export default function CustomizedTables(props: Props) {
   }
   return (
     <div className={className}>
-        {funds?.map(fund => (
-            <div key={fund.id}>
-                <Accordion fund={fund} />
-            </div>
-        ))}
+      {funds?.map((fund) => (
+        <div key={fund.id}>
+          <Accordion fund={fund} />
+        </div>
+      ))}
     </div>
   )
 }
-
-

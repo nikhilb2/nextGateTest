@@ -37,7 +37,6 @@ const StyledTableRow = withStyles((theme: Theme) =>
   })
 )(TableRow)
 
-
 const useStyles = makeStyles({
   table: {
     //minWidth: 700,
@@ -90,9 +89,7 @@ export default function CustomizedTables(props: Props) {
                 <StyledTableCell component="th" scope="row">
                   {fund.name}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                
-                </StyledTableCell>
+                <StyledTableCell align="right"></StyledTableCell>
               </StyledTableRow>
             ))}
         </TableBody>

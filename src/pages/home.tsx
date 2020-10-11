@@ -74,7 +74,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 type Props = PropsFromRedux & {}
 
 const Home = (props: Props) => {
-const { push } = useHistory()
+  const { push } = useHistory()
   const classes = useStyles()
   const {
     getFunds,
@@ -87,23 +87,23 @@ const { push } = useHistory()
   } = props
 
   const [selectedFund, selectFund] = useState<FundName | null>(null)
-  const [ filteredFunds, setFilteredFunds ] = useState<FundName[] | null>(null)
+  const [filteredFunds, setFilteredFunds] = useState<FundName[] | null>(null)
   const filterFunds = (keyword: string) => {
-      if (funds) {
-        const filtered = funds.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()))
-        setFilteredFunds(filtered)
-      }
-
+    if (funds) {
+      const filtered = funds.filter((item) =>
+        item.name.toLowerCase().includes(keyword.toLowerCase())
+      )
+      setFilteredFunds(filtered)
+    }
   }
 
   useEffect(() => {
     getFunds()
   }, [getFunds])
 
-
   useEffect(() => {
     if (funds) {
-        setFilteredFunds(funds)
+      setFilteredFunds(funds)
     }
   }, [funds])
 
@@ -113,7 +113,7 @@ const { push } = useHistory()
         <CssBaseline />
         <Title title="Test project: Sample data CRUD" />
         <Box className={classes.searchBox}>
-          <Searchbox onChange={(text) => filterFunds(text) } />
+          <Searchbox onChange={(text) => filterFunds(text)} />
         </Box>
       </Box>
       {fundsByClass ? (
@@ -129,7 +129,9 @@ const { push } = useHistory()
         <Table
           className={classes.table}
           funds={filteredFunds}
-          onSelect={(id: string, subfund: string) => push(`fund/${id}/${subfund}`)}
+          onSelect={(id: string, subfund: string) =>
+            push(`fund/${id}/${subfund}`)
+          }
         />
       ) : subFunds ? (
         subFunds &&

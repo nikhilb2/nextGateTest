@@ -9,8 +9,8 @@ import theme from 'theme'
 
 const useStyles = makeStyles({
   heeaderDiv: {
-    marginTop: theme.spacing(6)
-  }
+    marginTop: theme.spacing(6),
+  },
 })
 
 const App = () => {
