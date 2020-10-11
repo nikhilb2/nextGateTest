@@ -8,9 +8,9 @@ const useStyles = makeStyles((theme: Theme) =>
     search: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade('rgba(255, 255, 255, 0.62)', 0.15),
+      backgroundColor: fade('rgba(255, 255, 255, 0.4)', 0.15),
       '&:hover': {
-        backgroundColor: fade('rgba(255, 255, 255, 0.62)', 0.25),
+        backgroundColor: fade('rgba(255, 255, 255, 0.3)', 0.25),
       },
       marginLeft: 0,
       width: '100%',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     inputRoot: {
-      color: 'inherit',
+      color: '#ffffff',
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
@@ -59,7 +59,7 @@ const Searchbar = (props: Props) => {
   return (
     <div className={`${classes.search} ${className}`}>
       <div className={classes.searchIcon}>
-        <SearchIcon />
+        <SearchIcon style={{color: '#ffffff'}} />
       </div>
       <InputBase
         placeholder="Search…"

@@ -101,7 +101,7 @@ const Home = (props: Props) => {
     <Box className={classes.root}>
       <Box className={classes.headerContainer}>
         <CssBaseline />
-        <Title title="Test project: Sample data CRUD" />
+        <Title title="Test project" title2='Firebase realtime database' />
         <Box className={classes.searchBox}>
           <Searchbox onChange={(text) => filterFunds(text)} />
         </Box>
