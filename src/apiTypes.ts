@@ -22,8 +22,6 @@ export type ClassType= {
 export type FundName = {
     id: string
     name: string
-    classes: string[]
-    subfunds: string[]
 }
 
 export type Success = Object | null

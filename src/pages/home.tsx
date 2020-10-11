@@ -7,13 +7,14 @@ import {
   getMoreFunds,
   getSubFunds,
 } from 'redux/fund/actions'
-import Header from 'components/headers/header'
+import { useHistory } from 'react-router-dom'
 import Title from 'components/common/title'
 import { makeStyles } from '@material-ui/core/styles'
 import theme from 'theme'
 import { Box, CssBaseline } from '@material-ui/core'
 import Searchbox from 'components/common/searchbox'
-import Table from 'components/common/table'
+//import Table from 'components/common/table'
+import Table from 'components/common/tableNew'
 import { FundName, Fund, SubFund } from 'apiTypes'
 import FundDetails from 'components/common/fundDetails'
 
@@ -71,7 +72,9 @@ const connector = connect(mapStateToProps, mapDispatchToProps)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 type Props = PropsFromRedux & {}
+
 const Home = (props: Props) => {
+const { push } = useHistory()
   const classes = useStyles()
   const {
     getFunds,
@@ -108,7 +111,6 @@ const Home = (props: Props) => {
     <Box style={{ backgroundColor: '#ffffff' }}>
       <Box className={classes.headerContainer}>
         <CssBaseline />
-        <Header />
         <Title title="Test project: Sample data CRUD" />
         <Box className={classes.searchBox}>
           <Searchbox onChange={(text) => filterFunds(text) } />
@@ -127,7 +129,7 @@ const Home = (props: Props) => {
         <Table
           className={classes.table}
           funds={filteredFunds}
-          onSelect={(item: FundName) => selectFund(item)}
+          onSelect={(id: string, subfund: string) => push(`fund/${id}/${subfund}`)}
         />
       ) : subFunds ? (
         subFunds &&

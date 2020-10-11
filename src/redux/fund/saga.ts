@@ -17,7 +17,7 @@ function* getFunds(action: GetFundsAction) {
     const getResult = async (): Promise<Success | Fail> => {
         try {
             if (!action.keyword) {
-                const data = await firebase.database().ref('fundsid').orderByKey().limitToFirst(20).once('value').then(snap => 
+                const data = await firebase.database().ref('fundNames').orderByKey().limitToFirst(20).once('value').then(snap => 
                     snap.toJSON()
                     )
                     return data as Success
