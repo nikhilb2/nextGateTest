@@ -106,7 +106,7 @@ function* getSubfunds(action: GetSubfundAction) {
     const getResult = async (): Promise<Success | Fail> => {
         try {
 
-                const data = await firebase.database().ref('subfundClasses').orderByChild('id').equalTo(action.id).once('value').then(snap => 
+                const data = await firebase.database().ref('fundSubFunds').orderByChild('id').equalTo(action.id).once('value').then(snap => 
                     snap.toJSON()
                     )
                     return data as Success

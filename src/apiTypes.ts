@@ -11,6 +11,7 @@ export type Fund = {
 
 export type SubFund =  {
     id: string,
+    name: string,
     classes: string[]
 }
 
