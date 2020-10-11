@@ -53,7 +53,7 @@ function* getFunds(action: GetFundsAction) {
           .then((snap) => snap.toJSON())
         return data as Success
       } else {
-        console.log(action.keyword)
+
         const data = await firebase
           .database()
           .ref('data')
@@ -65,16 +65,23 @@ function* getFunds(action: GetFundsAction) {
         return data as Success
       }
 
-      //    console.log(data);
     } catch (err) {
-      console.log(err)
+
 
       return { err: 'failed' } as Fail
     }
   }
 
   let result = yield call<typeof getResult>(getResult)
-  result = Object.values(result)
+  if (result) {
+    result = Object.values(result)
+  }
+
+  if (!result) {
+    yield put(getFundsSuccess(result as null))  
+  }
+  
+
 
   if (result && !result.err) {
     yield put(getFundsSuccess(result as FundName[]))
@@ -84,7 +91,6 @@ function* getFunds(action: GetFundsAction) {
 }
 
 function* getFundsByClass(action: GetFundsByClassAction) {
-  console.log(action)
 
   const getResult = async (): Promise<Success | Fail> => {
     try {
@@ -97,27 +103,22 @@ function* getFundsByClass(action: GetFundsByClassAction) {
         .once('value')
         .then((snap) => snap.toJSON())
       return data as Success
-
-      //    console.log(data);
     } catch (err) {
-      console.log(err)
 
       return { err: 'failed' } as Fail
     }
   }
 
   let result = yield call<typeof getResult>(getResult)
-  console.log(result)
 
   if (result) {
     result = Object.values(result)
-  } else {
-    result = []
   }
 
-  console.log('actual funds')
-  console.log(result)
-
+  if (!result) {
+    yield put(getFundsByClassSuccess(result as null))  
+    return
+  }
   if (result && !result.err) {
     yield put(getFundsByClassSuccess(result as Fund[]))
   } else {
@@ -126,7 +127,6 @@ function* getFundsByClass(action: GetFundsByClassAction) {
 }
 
 function* getSubfunds(action: GetSubfundAction) {
-  console.log(action)
 
   const getResult = async (): Promise<Success | Fail> => {
     try {
@@ -140,26 +140,24 @@ function* getSubfunds(action: GetSubfundAction) {
 
       return data as Success
 
-      //    console.log(data);
     } catch (err) {
-      console.log(err)
 
       return { err: 'failed' } as Fail
     }
   }
 
   let result = yield call<typeof getResult>(getResult)
-  console.log(result)
 
   if (result) {
     result = Object.values(result)
 
     result[0].subfunds = Object.values(result[0].subfunds)
-  } else {
-    result = []
+  } 
+
+  if (!result) {
+    yield put(getSubFundsSuccess(result as null))
+    return
   }
-  console.log('actual funds')
-  console.log(result)
 
   if (result && !result.err) {
     yield put(getSubFundsSuccess(result as SubFund[]))
@@ -168,7 +166,7 @@ function* getSubfunds(action: GetSubfundAction) {
   }
 }
 function* getSubFundClasses(action: GetClassesByFundSubfundAction) {
-  console.log(action)
+
 
   const getResult = async (): Promise<Success | Fail> => {
     try {
@@ -181,24 +179,23 @@ function* getSubFundClasses(action: GetClassesByFundSubfundAction) {
         .then((snap) => snap.toJSON())
 
       return data as Success
-
-      //    console.log(data);
     } catch (err) {
-      console.log(err)
 
       return { err: 'failed' } as Fail
     }
   }
 
   let result = yield call<typeof getResult>(getResult)
-  console.log(result)
 
   if (result) {
     result = Object.values(result)[0]
     result.classes = Object.values(result.classes)
   }
-  console.log('actual funds')
-  console.log(result)
+
+    if (!result) {
+        yield put(getSubFundsClassesSuccess(result as null))
+        return
+    }
 
   if (result && !result.err) {
     yield put(getSubFundsClassesSuccess(result as SubFunClassesOfFund))
@@ -209,7 +206,6 @@ function* getSubFundClasses(action: GetClassesByFundSubfundAction) {
 
 function* getMoreFunds() {
   const skip = yield select(getFundSkip)
-  console.log(skip)
   const getResult = async (): Promise<Success | Fail> => {
     try {
       const data = await firebase
@@ -220,7 +216,6 @@ function* getMoreFunds() {
         .limitToFirst(20)
         .once('value')
         .then((snap) => snap.toJSON())
-      //       console.log(data);
 
       return data as Success
     } catch (err) {
@@ -232,8 +227,6 @@ function* getMoreFunds() {
 
   let result = yield call<typeof getResult>(getResult)
   result = Object.values(result)
-  console.log('result')
-  console.log(result)
   if (result && !result.err) {
     yield put(getMoreFundsSuccess(result as Fund[]))
   } else {

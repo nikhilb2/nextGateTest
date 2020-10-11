@@ -22,7 +22,6 @@ interface Props {
 export default function CustomizedTables(props: Props) {
   const classes = useStyles()
   const { className, funds, onSelect } = props
-  console.log(funds)
   const convertDate = (date: string) => {
     const manipulatedDate = date.split('')
     if (manipulatedDate.length) {
@@ -33,7 +32,6 @@ export default function CustomizedTables(props: Props) {
     manipulatedDate.forEach((item) => {
       date = date + item.toString()
     })
-    console.log(date)
     return date
   }
   return (

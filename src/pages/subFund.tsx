@@ -54,8 +54,6 @@ const Subfund = (props: Props) => {
   const { fundid } = useParams<Params>()
   const { push } = useHistory()
   const { pathname } = useLocation()
-  console.log(fundid)
-  console.log(subFunds)
   useEffect(() => {
     if (fundid) {
       getSubFunds(fundid)

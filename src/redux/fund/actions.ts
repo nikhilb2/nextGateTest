@@ -11,7 +11,7 @@ export const getFunds = (keyword?: string) => ({
   keyword,
 })
 
-export const getFundsSuccess = (funds: FundName[]) => ({
+export const getFundsSuccess = (funds: FundName[] | null) => ({
   type: actions.GET_FUNDS_SUCCESS,
   funds,
 })
@@ -25,7 +25,7 @@ export const getFundsByClass = (id?: string) => ({
   id,
 })
 
-export const getFundsByClassSuccess = (funds: Fund[]) => ({
+export const getFundsByClassSuccess = (funds: Fund[] | null) => ({
   type: actions.GET_FUNDS_BY_CLASS_SUCCESS,
   funds,
 })
@@ -52,7 +52,7 @@ export const getSubFunds = (id: string) => ({
   id,
 })
 
-export const getSubFundsSuccess = (subFunds: SubFund[]) => ({
+export const getSubFundsSuccess = (subFunds: SubFund[] | null) => ({
   type: actions.GET_SUBFUNDS_SUCCESS,
   subFunds,
 })
@@ -66,7 +66,7 @@ export const getSubFundsClasses = (id: string) => ({
   id,
 })
 
-export const getSubFundsClassesSuccess = (classes: SubFunClassesOfFund) => ({
+export const getSubFundsClassesSuccess = (classes: SubFunClassesOfFund | null) => ({
   type: actions.GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS,
   classes,
 })

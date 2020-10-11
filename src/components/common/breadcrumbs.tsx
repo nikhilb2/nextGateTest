@@ -22,7 +22,6 @@ const useStyles = makeStyles({
 
 const Bcrumbs = (props: Props) => {
   const { data, last } = props
-  console.log(data)
   const classes = useStyles()
   return (
     <Breadcrumbs aria-label="breadcrumb">
