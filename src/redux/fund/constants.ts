@@ -1,4 +1,4 @@
-import { Fund, FundName, SubFund } from 'apiTypes'
+import { Fund, FundName, SubFunClassesOfFund, SubFund, SubFundClasses } from 'apiTypes'
 
 // actions
 export const actions = {
@@ -13,7 +13,10 @@ export const actions = {
     GET_FUNDS_BY_CLASS_FAILED: 'GET_FUNDS_BY_CLASS_FAILED',
     GET_SUBFUNDS: 'GET_SUBFUND',
     GET_SUBFUNDS_SUCCESS: 'GET_SUBFUND_SUCCESS',
-    GET_SUBFUNDS_FAILED: 'GET_SUBFUND_FAILED'
+    GET_SUBFUNDS_FAILED: 'GET_SUBFUND_FAILED',
+    GET_CLASSES_BY_FUNDSUBFUNDID: 'GET_CLASSES_BY_FUNDSUBFUNDID',
+    GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS: 'GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS',
+    GET_CLASSES_BY_FUNDSUBFUNDID_FAILED: 'GET_CLASSES_BY_FUNDSUBFUNDID_FAILED'
 }
 
 //state type
@@ -31,6 +34,9 @@ export interface FundState {
     subFunds: SubFund[] | null
     gettingSubfunds: boolean
     getSubfundsError: string | null
+    subFundClasses: SubFunClassesOfFund | null
+    gettingSubFundClasses: boolean
+    getSubFundClassesError: string | null
 }
 
 
@@ -95,6 +101,20 @@ export interface GetSubfundAction {
   export interface GetSubfundFailedAction {
     type: typeof actions.GET_SUBFUNDS_FAILED
     error: string
+  }  
+export interface GetClassesByFundSubfundAction {
+    type: typeof actions.GET_CLASSES_BY_FUNDSUBFUNDID,
+    id: string
+  }
+  
+  export interface GetClassesByFundSubfundSuccessAction {
+    type: typeof actions.GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS
+    classes?: SubFunClassesOfFund | null
+  }
+  
+  export interface GetClassesByFundSubfundFailedAction {
+    type: typeof actions.GET_CLASSES_BY_FUNDSUBFUNDID_FAILED
+    error: string
   }
   
   export type GetFundsActionTypes =
@@ -110,3 +130,6 @@ export interface GetSubfundAction {
     | GetSubfundAction
     | GetSubfundSuccessAction
     | GetSubfundFailedAction
+    | GetClassesByFundSubfundAction
+    | GetClassesByFundSubfundSuccessAction
+    | GetClassesByFundSubfundFailedAction

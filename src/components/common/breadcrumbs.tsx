@@ -1,7 +1,7 @@
 import { Breadcrumbs, Typography, makeStyles } from '@material-ui/core'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import theme from 'theme'
 interface Data {
   name: string
   route: string
@@ -15,7 +15,8 @@ interface Props {
 const useStyles = makeStyles({
   link: {
     textDecoration: 'none',
-    color: '#000000'
+    color: theme.palette.primary.contrastText,
+    fontWeight: 600
   }
 })
 

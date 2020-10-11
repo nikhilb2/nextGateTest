@@ -12,7 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import { FundName } from 'apiTypes'
+import { FundName, SubFundClasses } from 'apiTypes'
 import Accordion from './accordion'
 
 const StyledTableCell = withStyles((theme: Theme) =>
@@ -45,13 +45,13 @@ const useStyles = makeStyles({
 
 interface Props {
   className?: string
-  funds?: FundName[] | null
+  funds?: FundName[] | SubFundClasses[] | null
   onSelect?(id: string, subfund?: string): void
+  title?: string
 }
 export default function CustomizedTables(props: Props) {
   const classes = useStyles()
-  const { className, funds, onSelect } = props
-  console.log(funds)
+  const { className, funds, onSelect, title } = props
   const convertDate = (date: string) => {
     const manipulatedDate = date.split('')
     if (manipulatedDate.length) {
@@ -70,8 +70,8 @@ export default function CustomizedTables(props: Props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Fund name</StyledTableCell>
-            <StyledTableCell align="right">Subfunds</StyledTableCell>
+            <StyledTableCell>{title}</StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

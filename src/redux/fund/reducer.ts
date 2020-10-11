@@ -1,5 +1,5 @@
 import { Fund, FundName } from 'apiTypes'
-import { actions, FundState, GetFundsAction, GetFundsSuccessAction, GetFundsFailedAction, GetMoreFundsSuccessAction, GetFundsActionTypes, GetMoreFundsFailedAction, GetFundsByClassSuccessAction, GetFundsByClassFailedAction, GetSubfundSuccessAction, GetSubfundFailedAction } from './constants'
+import { actions, FundState, GetFundsAction, GetFundsSuccessAction, GetFundsFailedAction, GetMoreFundsSuccessAction, GetFundsActionTypes, GetMoreFundsFailedAction, GetFundsByClassSuccessAction, GetFundsByClassFailedAction, GetSubfundSuccessAction, GetSubfundFailedAction, GetClassesByFundSubfundFailedAction, GetClassesByFundSubfundSuccessAction } from './constants'
 
 const initialState: FundState = {
     gettingFunds: false,
@@ -13,7 +13,11 @@ const initialState: FundState = {
     getFundsByClassError: null,
     subFunds: null,
     gettingSubfunds: false,
-    getSubfundsError: null
+    getSubfundsError: null,
+    subFundClasses: null,
+    gettingSubFundClasses: false,
+    getSubFundClassesError: null
+    
 }
 
 const fundReducer = (
@@ -75,6 +79,25 @@ const fundReducer = (
             return Object.assign({}, state, {
                 gettingSubfunds: false,
                 getFundsByClassError: (action as GetSubfundFailedAction).error
+            })
+        }
+        case actions.GET_CLASSES_BY_FUNDSUBFUNDID: {
+            return Object.assign({}, state, {
+                gettingSubFundClasses: true,
+                getSubFundClass: null
+            })
+        }
+        case actions.GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS: {
+            return Object.assign({}, state, {
+                gettingSubFundClasses: false,
+                getSubFundClassesError: null,
+                subFundClasses: (action as GetClassesByFundSubfundSuccessAction).classes
+            })
+        }
+        case actions.GET_CLASSES_BY_FUNDSUBFUNDID_FAILED: {
+            return Object.assign({}, state, {
+                gettingSubFundClasses: false,
+                getSubFundClassesError: (action as GetClassesByFundSubfundFailedAction).error
             })
         }
 

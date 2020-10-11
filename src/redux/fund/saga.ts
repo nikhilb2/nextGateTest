@@ -1,13 +1,13 @@
 
-import { actions, FundState, GetFundsAction, GetFundsByClassAction, GetSubfundAction } from './constants'
+import { actions, FundState, GetClassesByFundSubfundAction, GetFundsAction, GetFundsByClassAction, GetSubfundAction } from './constants'
 
-import { getFundsSuccess, getFundsFailed, getMoreFundsSuccess, getMoreFundsFailed, getFundsByClassSuccess, getFundsByClassFailed, getSubFundsSuccess, getSubFundsFailed } from './actions'
+import { getFundsSuccess, getFundsFailed, getMoreFundsSuccess, getMoreFundsFailed, getFundsByClassSuccess, getFundsByClassFailed, getSubFundsSuccess, getSubFundsFailed, getSubFundsClassesSuccess, getSubFundsClassesFailed } from './actions'
 import { call, put, all, takeLatest, select } from 'redux-saga/effects'
 import firebase from 'firstoreConfig'
-import { Success, Fail, Fund, FundName, SubFund } from 'apiTypes'
+import { Success, Fail, Fund, FundName, SubFund, SubFundClasses, SubFunClassesOfFund } from 'apiTypes'
 import { RootState } from 'configureStore'
 
-const { GET_FUNDS, GET_MORE_FUNDS, GET_FUNDS_BY_CLASS, GET_SUBFUNDS } = actions
+const { GET_FUNDS, GET_MORE_FUNDS, GET_FUNDS_BY_CLASS, GET_SUBFUNDS, GET_CLASSES_BY_FUNDSUBFUNDID } = actions
 
 const getFundSkip = (state:RootState ) => state.fundReducer.funds?.length
 
@@ -146,6 +146,50 @@ console.log(result);
     
 
 }
+function* getSubFundClasses(action: GetClassesByFundSubfundAction) {
+
+    console.log(action);
+    
+    const getResult = async (): Promise<Success | Fail> => {
+        try {
+
+                const data = await firebase.database().ref('subFundClasses').orderByChild('id').equalTo(action.id).once('value').then(snap => 
+                    snap.toJSON()
+                    )
+    
+                    return data as Success
+    
+           //    console.log(data);
+               
+            
+        } catch(err) {
+            console.log(err);
+            
+            return {err: 'failed'} as Fail
+        }
+    }
+
+    
+    let result = yield call<typeof getResult>(getResult)
+console.log(result);
+
+    if (result) {
+        result = Object.values(result)[0]
+        result.classes = Object.values(result.classes)
+    }
+    console.log('actual funds');
+    console.log(result)
+
+    
+    if (result && !result.err) {
+        yield put(getSubFundsClassesSuccess(result as SubFunClassesOfFund))
+    } else {
+        yield put(getSubFundsClassesFailed(result.err))
+    }
+
+    
+
+}
 
 function* getMoreFunds() {
     const skip = yield select(getFundSkip)
@@ -196,10 +240,14 @@ function* getFundsByClassSaga() {
   function* getSubfundsSaga() {
     yield takeLatest(GET_SUBFUNDS, getSubfunds)
   }
+    
+  function* getSubFundClassesSaga() {
+    yield takeLatest(GET_CLASSES_BY_FUNDSUBFUNDID, getSubFundClasses)
+  }
   
   
   function* mainSaga() {
-    yield all([call(getFundsSaga), call(getMoreFundsSaga), call(getFundsByClassSaga), call(getSubfundsSaga)])
+    yield all([call(getFundsSaga), call(getMoreFundsSaga), call(getFundsByClassSaga), call(getSubfundsSaga), call(getSubFundClassesSaga)])
   }
   
   export default mainSaga

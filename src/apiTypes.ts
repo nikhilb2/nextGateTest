@@ -30,6 +30,18 @@ export type FundName = {
     name: string
 }
 
+export type SubFundClasses = {
+    id: string
+    name: string
+}
+
+export type SubFunClassesOfFund = {
+    id: string
+    name: string
+    subFund: string
+    classes: SubFundClasses[]
+}
+
 export type Success = Object | null
 
 export type Fail = {
