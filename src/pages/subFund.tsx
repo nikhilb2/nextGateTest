@@ -7,7 +7,7 @@ import theme from 'theme'
 import { makeStyles } from '@material-ui/core'
 import Bcrumbs from 'components/common/breadcrumbs'
 import SubFundTable from 'components/common/SubFundsTable'
-
+import { useHistory, useLocation } from 'react-router-dom'
 const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
 })
@@ -51,7 +51,9 @@ const useStyles = makeStyles({
 const Subfund = (props: Props) => {
   const { getSubFunds, subFunds } = props
   const classes = useStyles()
-  const { fundid, subfundid } = useParams<Params>()
+  const { fundid } = useParams<Params>()
+  const { push } = useHistory()
+  const { pathname } = useLocation()
   console.log(fundid)
   console.log(subFunds)
   useEffect(() => {
@@ -72,11 +74,13 @@ const Subfund = (props: Props) => {
           ]}
           last={subFunds ? subFunds[0].name : ''}
         />
-        <SubFundTable
+    <SubFundTable
           data={subFunds ? subFunds[0] : subFunds}
           className={classes.table}
           title={subFunds ? subFunds[0].name : ''}
+          onSelect={(id) =>  push(pathname+'/'+id)}
         />
+
       </div>
     </div>
   )

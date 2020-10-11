@@ -3,6 +3,7 @@ import { Route, withRouter } from 'react-router-dom'
 
 import Home from 'pages/home'
 import SubFund from 'pages/subFund'
+import SubfundClasses from 'pages/subFundClasses'
 import Header from 'components/headers/header'
 import { makeStyles } from '@material-ui/core'
 import theme from 'theme'
@@ -20,7 +21,8 @@ const App = () => {
       <Header />
       <div className={classes.heeaderDiv} />
       <Route exact path="/" component={Home} />
-      <Route path="/fund/:fundid" component={SubFund} />
+      <Route exact path="/fund/:fundid" component={SubFund} />
+      <Route exact path="/fund/:fundid/:subfundid" component={SubfundClasses} />
     </>
   )
 }
