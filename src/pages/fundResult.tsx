@@ -10,7 +10,7 @@ import {
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core'
 import theme from 'theme'
-import Table from 'components/common/table'
+import Table from 'components/common/resultTable'
 import { FundName, SubFundClasses } from 'apiTypes'
 
 const mapStateToProps = (state: RootState) => ({
@@ -53,7 +53,7 @@ const useStyles = makeStyles({
       maxWidth: '80%',
     },
     [theme.breakpoints.up('md')]: {
-      maxWidth: '60%',
+      maxWidth: '80%',
     },
   },
 })
@@ -113,6 +113,7 @@ const SubfundClasses = (props: Props) => {
         ]}
         last="Soon"
       />
+      <Table className={classes.table} data={fundsByClass}/>
     </div>
   )
 }

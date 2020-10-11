@@ -13,7 +13,6 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { FundName, SubFundClasses } from 'apiTypes'
-import Accordion from './accordion'
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -52,19 +51,7 @@ interface Props {
 export default function CustomizedTables(props: Props) {
   const classes = useStyles()
   const { className, funds, onSelect, title } = props
-  const convertDate = (date: string) => {
-    const manipulatedDate = date.split('')
-    if (manipulatedDate.length) {
-      manipulatedDate.splice(4, 0, '-')
-      manipulatedDate.splice(7, 0, '-')
-    }
-    date = ''
-    manipulatedDate.forEach((item) => {
-      date = date + item.toString()
-    })
-    console.log(date)
-    return date
-  }
+
   return (
     <TableContainer component={Paper} className={className}>
       <Table className={classes.table} aria-label="customized table">
