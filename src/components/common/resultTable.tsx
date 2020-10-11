@@ -7,7 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Fund } from 'apiTypes'
+import { Fund, SortType } from 'apiTypes'
+import { Sort, ArrowDownward, ArrowUpward } from '@material-ui/icons'
 import moment from 'moment'
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -37,12 +38,32 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  cursor: {
+    cursor: 'pointer',
+    marginTop: 'auto',
+    marginBottom: 'auto'
+  },
+  sort: {
+    fontSize: 15,
+    marginTop: 'auto',
+    marginBottom: 'auto'
+  },
+  arrow: {
+    fontSize: 15,
+    marginTop: 'auto',
+    marginBottom: 'auto'
+  }
 });
 
 
 interface Props {
     className?: string
     data: Fund[] | null
+    dateOrder: number
+    reportOrder: number
+    alertOrder: number
+    sortFunds?(type: SortType, order:  number): void
+    currentSort: SortType
   }
 
   const convertDate = (date: string) => {
@@ -55,13 +76,24 @@ interface Props {
     manipulatedDate.forEach((item) => {
       date = date + item.toString()
     })
-    console.log(date)
     return date
   }
 
 export default function CustomizedTables(props: Props) {
   const classes = useStyles();
-    const { className, data } = props
+    const { className, data, dateOrder, sortFunds, currentSort, reportOrder, alertOrder } = props
+
+const renderSort = (sortOrder: number, sorting: SortType) => {
+    if (currentSort === sorting) {
+        if (sortOrder < 0) {
+            return <ArrowDownward className={classes.arrow} />
+        }
+        return <ArrowUpward className={classes.arrow} />
+    }
+    return <Sort className={classes.sort}/>
+
+}
+
   return (
     <TableContainer component={Paper} className={className}>
       <Table className={classes.table} aria-label="customized table">
@@ -70,9 +102,23 @@ export default function CustomizedTables(props: Props) {
             <StyledTableCell>Fund name</StyledTableCell>
             <StyledTableCell align="right">Sub fund</StyledTableCell>
             <StyledTableCell align="right">Class name</StyledTableCell>
-            <StyledTableCell align="right">Date</StyledTableCell>
-            <StyledTableCell align="right">Report status</StyledTableCell>
-            <StyledTableCell align="right">Alerts</StyledTableCell>
+            <StyledTableCell align="right" className={classes.cursor} onClick={() => {
+                if (sortFunds) {
+                    if (dateOrder) {
+                        sortFunds('date', dateOrder * -1)
+                    }                    
+                }
+            }}>Date {renderSort(dateOrder, 'date')}</StyledTableCell>
+            <StyledTableCell align="right" onClick={() => {
+                if (sortFunds) {
+                        sortFunds('report_status', reportOrder * -1)                 
+                }
+            }} className={classes.cursor}>Report status {renderSort(reportOrder, 'report_status')}</StyledTableCell>
+            <StyledTableCell onClick={() => {
+                if (sortFunds) {
+                        sortFunds('nb_alerts', alertOrder * -1)                 
+                }
+            }} align="right" className={classes.cursor}>Alerts {renderSort(alertOrder, 'nb_alerts')}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

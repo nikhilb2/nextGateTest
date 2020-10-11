@@ -47,3 +47,5 @@ export type Success = Object | null
 export type Fail = {
     err : string
 }
+
+export type SortType = 'date' | 'nb_alerts' | 'report_status'
