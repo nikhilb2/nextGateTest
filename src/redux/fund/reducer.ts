@@ -60,7 +60,8 @@ const fundReducer = (
       return Object.assign({}, state, {
         gettingFundsByClass: true,
         getFundsByClassError: null,
-        loading: true
+        loading: true,
+        fundsByClass: null
       })
     }
     case actions.GET_FUNDS_BY_CLASS_SUCCESS: {
@@ -82,7 +83,8 @@ const fundReducer = (
       return Object.assign({}, state, {
         gettingSubfunds: true,
         getSubfundsError: null,
-        loading: true
+        loading: true,
+        subFunds: null
       })
     }
     case actions.GET_SUBFUNDS_SUCCESS: {
@@ -104,7 +106,8 @@ const fundReducer = (
       return Object.assign({}, state, {
         gettingSubFundClasses: true,
         getSubFundClass: null,
-        loading: true
+        loading: true,
+        subFundClasses: null
       })
     }
     case actions.GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS: {

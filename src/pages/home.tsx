@@ -19,6 +19,7 @@ import { FundName } from 'apiTypes'
 const useStyles = makeStyles({
   root: {
     backgroundColor: theme.palette.background.paper,
+    minHeight: '100vh'
   },
   headerContainer: {
     backgroundColor: theme.palette.primary.main,
@@ -97,7 +98,7 @@ const Home = (props: Props) => {
   }, [funds])
 
   return (
-    <Box style={{ backgroundColor: '#ffffff' }}>
+    <Box className={classes.root}>
       <Box className={classes.headerContainer}>
         <CssBaseline />
         <Title title="Test project: Sample data CRUD" />

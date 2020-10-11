@@ -31,6 +31,7 @@ const useStyles = makeStyles({
   container: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2),
+    minHeight: '100vh'
   },
   table: {
     paddingRight: theme.spacing(2),
