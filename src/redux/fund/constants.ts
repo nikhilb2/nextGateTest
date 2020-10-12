@@ -22,20 +22,20 @@ export const actions = {
 //state type
 
 export interface FundState {
-  gettingFunds: boolean
+ // gettingFunds: boolean
   getFundsError: string | null
   funds: FundName[] | null
   skip: number
   getMoreFundsError: string | null
   keyword: string | null
-  gettingFundsByClass: boolean
+ // gettingFundsByClass: boolean
   getFundsByClassError: string | null
   fundsByClass: Fund[] | null
   subFunds: SubFund[] | null
-  gettingSubfunds: boolean
+  //gettingSubfunds: boolean
   getSubfundsError: string | null
   subFundClasses: SubFunClassesOfFund | null
-  gettingSubFundClasses: boolean
+  //gettingSubFundClasses: boolean
   getSubFundClassesError: string | null
   loading: boolean
 }

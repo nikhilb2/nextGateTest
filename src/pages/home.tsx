@@ -4,7 +4,6 @@ import { RootState, AppDispatch } from 'configureStore'
 import {
   getFunds,
   getFundsByClass,
-  getMoreFunds,
   getSubFunds,
 } from 'redux/fund/actions'
 import { useHistory } from 'react-router-dom'
@@ -61,7 +60,6 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   getFunds: (keyword?: string) => dispatch(getFunds(keyword)),
-  getMoreFunds: () => dispatch(getMoreFunds()),
   getFundsByClass: (id: string) => dispatch(getFundsByClass(id)),
   getSubFunds: (id: string) => dispatch(getSubFunds(id)),
 })
