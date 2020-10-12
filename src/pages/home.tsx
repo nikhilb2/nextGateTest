@@ -102,15 +102,16 @@ const Home = (props: Props) => {
       <Box className={classes.headerContainer}>
         <CssBaseline />
         <Title title="Test project" title2='Firebase realtime database' />
-        <Box className={classes.searchBox}>
+        {/*<Box className={classes.searchBox}>
           <Searchbox onChange={(text) => filterFunds(text)} />
-        </Box>
+  </Box>*/}
       </Box>
       <Table
         className={classes.table}
         funds={filteredFunds}
         onSelect={(id: string) => push(`fund/${id}`)}
         title="Select fund"
+        onSearch={(text) => filterFunds(text)}
       />
     </Box>
   )

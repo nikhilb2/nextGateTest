@@ -13,6 +13,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { FundName, SubFundClasses } from 'apiTypes'
+import Searchbar from './searchbox'
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +41,14 @@ const useStyles = makeStyles({
   table: {
     //minWidth: 700,
   },
+  search: {
+    width: '50%'
+  },
+  searchHolder: {
+    display:'flex',
+    flexDirection: 'row', 
+    justifyContent: 'flex-end'
+  }
 })
 
 interface Props {
@@ -47,10 +56,11 @@ interface Props {
   funds?: FundName[] | SubFundClasses[] | null
   onSelect?(id: string): void
   title?: string
+  onSearch?(keyword: string): void
 }
 export default function CustomizedTables(props: Props) {
   const classes = useStyles()
-  const { className, funds, onSelect, title } = props
+  const { className, funds, onSelect, title, onSearch } = props
 
   return (
     <TableContainer component={Paper} className={className}>
@@ -58,7 +68,11 @@ export default function CustomizedTables(props: Props) {
         <TableHead>
           <TableRow>
             <StyledTableCell>{title}</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableCell align="right" className={classes.searchHolder}><Searchbar className={classes.search} onChange={(text) => {
+              if (onSearch) {
+                onSearch(text)
+              }
+            }}/></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
