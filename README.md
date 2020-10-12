@@ -11,8 +11,8 @@ Root\
 --components\
 ---common\
 ---header\
----pages\
----redux\
+--pages\
+--redux\
  
 all main pages are are pages folder, 
 
