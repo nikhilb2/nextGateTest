@@ -18,14 +18,12 @@ const useStyles = makeStyles({
   },
   loading: {
     position: 'fixed',
-    bottom: 0
-    
-  }
+    bottom: 0,
+  },
 })
 
-
 const mapStateToProps = (state: RootState) => ({
-  loading: state.fundReducer.loading
+  loading: state.fundReducer.loading,
 })
 
 const connector = connect(mapStateToProps)
@@ -48,8 +46,7 @@ const App = (props: Props) => {
         path="/fund/:fundid/:subfundid/:classid"
         component={FundResult}
       />
-      {loading && <Loading className={classes.loading} /> }
-        
+      {loading && <Loading className={classes.loading} />}
     </MuiThemeProvider>
   )
 }

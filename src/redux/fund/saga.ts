@@ -53,7 +53,6 @@ function* getFunds(action: GetFundsAction) {
           .then((snap) => snap.toJSON())
         return data as Success
       } else {
-
         const data = await firebase
           .database()
           .ref('data')
@@ -64,10 +63,7 @@ function* getFunds(action: GetFundsAction) {
           .then((snap) => snap.toJSON())
         return data as Success
       }
-
     } catch (err) {
-
-
       return { err: 'failed' } as Fail
     }
   }
@@ -78,10 +74,8 @@ function* getFunds(action: GetFundsAction) {
   }
 
   if (!result) {
-    yield put(getFundsSuccess(result as null))  
+    yield put(getFundsSuccess(result as null))
   }
-  
-
 
   if (result && !result.err) {
     yield put(getFundsSuccess(result as FundName[]))
@@ -91,7 +85,6 @@ function* getFunds(action: GetFundsAction) {
 }
 
 function* getFundsByClass(action: GetFundsByClassAction) {
-
   const getResult = async (): Promise<Success | Fail> => {
     try {
       const data = await firebase
@@ -104,7 +97,6 @@ function* getFundsByClass(action: GetFundsByClassAction) {
         .then((snap) => snap.toJSON())
       return data as Success
     } catch (err) {
-
       return { err: 'failed' } as Fail
     }
   }
@@ -116,7 +108,7 @@ function* getFundsByClass(action: GetFundsByClassAction) {
   }
 
   if (!result) {
-    yield put(getFundsByClassSuccess(result as null))  
+    yield put(getFundsByClassSuccess(result as null))
     return
   }
   if (result && !result.err) {
@@ -127,7 +119,6 @@ function* getFundsByClass(action: GetFundsByClassAction) {
 }
 
 function* getSubfunds(action: GetSubfundAction) {
-
   const getResult = async (): Promise<Success | Fail> => {
     try {
       const data = await firebase
@@ -139,9 +130,7 @@ function* getSubfunds(action: GetSubfundAction) {
         .then((snap) => snap.toJSON())
 
       return data as Success
-
     } catch (err) {
-
       return { err: 'failed' } as Fail
     }
   }
@@ -152,7 +141,7 @@ function* getSubfunds(action: GetSubfundAction) {
     result = Object.values(result)
 
     result[0].subfunds = Object.values(result[0].subfunds)
-  } 
+  }
 
   if (!result) {
     yield put(getSubFundsSuccess(result as null))
@@ -166,8 +155,6 @@ function* getSubfunds(action: GetSubfundAction) {
   }
 }
 function* getSubFundClasses(action: GetClassesByFundSubfundAction) {
-
-
   const getResult = async (): Promise<Success | Fail> => {
     try {
       const data = await firebase
@@ -180,7 +167,6 @@ function* getSubFundClasses(action: GetClassesByFundSubfundAction) {
 
       return data as Success
     } catch (err) {
-
       return { err: 'failed' } as Fail
     }
   }
@@ -192,10 +178,10 @@ function* getSubFundClasses(action: GetClassesByFundSubfundAction) {
     result.classes = Object.values(result.classes)
   }
 
-    if (!result) {
-        yield put(getSubFundsClassesSuccess(result as null))
-        return
-    }
+  if (!result) {
+    yield put(getSubFundsClassesSuccess(result as null))
+    return
+  }
 
   if (result && !result.err) {
     yield put(getSubFundsClassesSuccess(result as SubFunClassesOfFund))

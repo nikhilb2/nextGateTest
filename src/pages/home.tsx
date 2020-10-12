@@ -18,13 +18,13 @@ import { FundName } from 'apiTypes'
 const useStyles = makeStyles({
   root: {
     backgroundColor: theme.palette.background.paper,
-    minHeight: '100vh'
+    minHeight: '100vh',
   },
   headerContainer: {
     backgroundColor: theme.palette.primary.main,
     overflow: 'hidden',
     width: '100vw',
-  //  borderBottomLeftRadius: '5vw',
+    //  borderBottomLeftRadius: '5vw',
     paddingBottom: theme.spacing(2),
     //    borderBottomRightRadius: '10vw'
   },
@@ -56,7 +56,7 @@ const mapStateToProps = (state: RootState) => ({
   funds: state.fundReducer.funds,
   fundsByClass: state.fundReducer.fundsByClass,
   subFunds: state.fundReducer.subFunds,
-  loading: state.fundReducer.loading
+  loading: state.fundReducer.loading,
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
@@ -101,19 +101,20 @@ const Home = (props: Props) => {
     <Box className={classes.root}>
       <Box className={classes.headerContainer}>
         <CssBaseline />
-        <Title title="Test project" title2='Firebase realtime database' />
+        <Title title="Test project" title2="Firebase realtime database" />
         {/*<Box className={classes.searchBox}>
           <Searchbox onChange={(text) => filterFunds(text)} />
   </Box>*/}
       </Box>
-      {!loading && 
-      <Table
-        className={classes.table}
-        funds={filteredFunds}
-        onSelect={(id: string) => push(`fund/${id}`)}
-        title="Select fund"
-        onSearch={(text) => filterFunds(text)}
-      />}
+      {!loading && (
+        <Table
+          className={classes.table}
+          funds={filteredFunds}
+          onSelect={(id: string) => push(`fund/${id}`)}
+          title="Select fund"
+          onSearch={(text) => filterFunds(text)}
+        />
+      )}
     </Box>
   )
 }

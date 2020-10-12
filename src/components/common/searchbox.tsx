@@ -59,7 +59,7 @@ const Searchbar = (props: Props) => {
   return (
     <div className={`${classes.search} ${className}`}>
       <div className={classes.searchIcon}>
-        <SearchIcon style={{color: '#ffffff'}} />
+        <SearchIcon style={{ color: '#ffffff' }} />
       </div>
       <InputBase
         placeholder="Search…"

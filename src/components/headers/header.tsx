@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   container: {
     backgroundColor: theme.palette.primary.main,
     boxShadow: 'none',
-    height: theme.spacing(6)
+    height: theme.spacing(6),
   },
   title: {
     letterSpacing: -0.24,

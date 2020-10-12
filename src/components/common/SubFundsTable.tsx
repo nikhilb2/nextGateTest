@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     //minWidth: 700,
   },
   search: {
-  //  width: '50%'
+    //  width: '50%'
   },
   searchHolder: {
     alignItems: 'flex-end',
@@ -50,9 +50,9 @@ const useStyles = makeStyles({
       width: '50%',
     },
     [theme.breakpoints.up('md')]: {
-      width: '30%'
+      width: '30%',
     },
-  }
+  },
 })
 
 interface Props {
@@ -63,11 +63,12 @@ interface Props {
   //onSearch?(keyword: string): void
 }
 
-
 export default function SubFundTable(props: Props) {
   const classes = useStyles()
   const { className, data, onSelect, title } = props
-  const [ filteredSubFunds, setFilteredSubFunds ] = useState<SubFundOfFund[] | null>(null)
+  const [filteredSubFunds, setFilteredSubFunds] = useState<
+    SubFundOfFund[] | null
+  >(null)
 
   useEffect(() => {
     if (data) {
@@ -75,13 +76,13 @@ export default function SubFundTable(props: Props) {
     }
   }, [data])
 
-
   const filterSubFund = (keyword: string) => {
     if (data && data.subfunds) {
-      const filtered = data.subfunds.filter(fund => fund.subfundName.toLowerCase().includes(keyword.toLowerCase()))
+      const filtered = data.subfunds.filter((fund) =>
+        fund.subfundName.toLowerCase().includes(keyword.toLowerCase())
+      )
       console.log(filtered)
       setFilteredSubFunds(filtered)
-
     }
   }
 
@@ -91,30 +92,33 @@ export default function SubFundTable(props: Props) {
         <TableHead>
           <TableRow>
             <StyledTableCell>{title}</StyledTableCell>
-            <StyledTableCell align="right" className={classes.searchHolder}><Searchbar className={classes.search} onChange={(text) => {
-    
-                filterSubFund(text)
-            }}/></StyledTableCell>
+            <StyledTableCell align="right" className={classes.searchHolder}>
+              <Searchbar
+                className={classes.search}
+                onChange={(text) => {
+                  filterSubFund(text)
+                }}
+              />
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {
-            filteredSubFunds?.map((fund, index) => (
-              <StyledTableRow
-                style={{ cursor: 'pointer' }}
-                key={fund.subfundId}
-                onClick={() => {
-                  if (onSelect) {
-                    onSelect(fund.subfundId)
-                  }
-                }}
-              >
-                <StyledTableCell component="th" scope="row">
-                  {fund.subfundName}
-                </StyledTableCell>
-                <StyledTableCell align="right"></StyledTableCell>
-              </StyledTableRow>
-            ))}
+          {filteredSubFunds?.map((fund, index) => (
+            <StyledTableRow
+              style={{ cursor: 'pointer' }}
+              key={fund.subfundId}
+              onClick={() => {
+                if (onSelect) {
+                  onSelect(fund.subfundId)
+                }
+              }}
+            >
+              <StyledTableCell component="th" scope="row">
+                {fund.subfundName}
+              </StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+            </StyledTableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

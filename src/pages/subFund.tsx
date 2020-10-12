@@ -11,7 +11,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
-  loading: state.fundReducer.loading
+  loading: state.fundReducer.loading,
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   container: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2),
-    minHeight: '100vh'
+    minHeight: '100vh',
   },
   table: {
     paddingRight: theme.spacing(2),
@@ -67,25 +67,25 @@ const Subfunds = (props: Props) => {
   return (
     <div className={classes.container}>
       <div>
-        {!loading &&
+        {!loading && (
           <>
             <Bcrumbs
-          data={[
-            {
-              name: 'Home',
-              route: '/',
-            },
-          ]}
-          last={subFunds ? subFunds[0].name : ''}
-        />
-        <SubFundTable
-          data={subFunds ? subFunds[0] : subFunds}
-          className={classes.table}
-          title={subFunds ? subFunds[0].name : ''}
-          onSelect={(id) => push(pathname + '/' + id)}
-        />
+              data={[
+                {
+                  name: 'Home',
+                  route: '/',
+                },
+              ]}
+              last={subFunds ? subFunds[0].name : ''}
+            />
+            <SubFundTable
+              data={subFunds ? subFunds[0] : subFunds}
+              className={classes.table}
+              title={subFunds ? subFunds[0].name : ''}
+              onSelect={(id) => push(pathname + '/' + id)}
+            />
           </>
-        }
+        )}
       </div>
     </div>
   )

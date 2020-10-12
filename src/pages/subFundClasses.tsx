@@ -11,7 +11,7 @@ import { SubFundClasses } from 'apiTypes'
 const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
   subFundClasses: state.fundReducer.subFundClasses,
-  loading: state.fundReducer.loading
+  loading: state.fundReducer.loading,
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   container: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2),
-    minHeight: '100vh'
+    minHeight: '100vh',
   },
   table: {
     paddingRight: theme.spacing(2),
@@ -53,8 +53,16 @@ const useStyles = makeStyles({
 })
 
 const SubfundClasses = (props: Props) => {
-  const { subFunds, getSubFunds, getSubFundsClasses, subFundClasses, loading } = props
-  const [ filteredSubFundClasses, setFilteredSubfundClasses] = useState<SubFundClasses[] | null>(null)
+  const {
+    subFunds,
+    getSubFunds,
+    getSubFundsClasses,
+    subFundClasses,
+    loading,
+  } = props
+  const [filteredSubFundClasses, setFilteredSubfundClasses] = useState<
+    SubFundClasses[] | null
+  >(null)
 
   useEffect(() => {
     if (subFundClasses) {
@@ -62,13 +70,13 @@ const SubfundClasses = (props: Props) => {
     }
   }, [subFundClasses])
 
-
   const filterSubFund = (keyword: string) => {
     if (subFundClasses && subFundClasses.classes) {
-      const filtered = subFundClasses.classes.filter(fund => fund.name.toLowerCase().includes(keyword.toLowerCase()))
+      const filtered = subFundClasses.classes.filter((fund) =>
+        fund.name.toLowerCase().includes(keyword.toLowerCase())
+      )
       console.log(filtered)
       setFilteredSubfundClasses(filtered)
-
     }
   }
 
@@ -92,34 +100,34 @@ const SubfundClasses = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      {!loading &&
+      {!loading && (
         <>
           <Bcrumbs
-        data={[
-          {
-            name: 'Home',
-            route: '/',
-          },
-          {
-            name: subFunds ? subFunds[0].name : '',
-            route: `/fund/${fundid}`,
-          },
-        ]}
-        last={subFundClasses ? subFundClasses.subFund : ''}
-      />
-      <Table
-        funds={filteredSubFundClasses}
-        className={classes.table}
-        title={
-          subFundClasses
-            ? `${subFundClasses.name}  -> ${subFundClasses.subFund}`
-            : ' '
-        }
-        onSelect={(id) => push(pathname + '/' + id)}
-        onSearch={(text) => filterSubFund(text)}
-      />
+            data={[
+              {
+                name: 'Home',
+                route: '/',
+              },
+              {
+                name: subFunds ? subFunds[0].name : '',
+                route: `/fund/${fundid}`,
+              },
+            ]}
+            last={subFundClasses ? subFundClasses.subFund : ''}
+          />
+          <Table
+            funds={filteredSubFundClasses}
+            className={classes.table}
+            title={
+              subFundClasses
+                ? `${subFundClasses.name}  -> ${subFundClasses.subFund}`
+                : ' '
+            }
+            onSelect={(id) => push(pathname + '/' + id)}
+            onSearch={(text) => filterSubFund(text)}
+          />
         </>
-      }
+      )}
     </div>
   )
 }

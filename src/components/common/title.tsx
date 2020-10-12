@@ -20,13 +20,13 @@ const useStyles = makeStyles({
 
     letterSpacing: -0.2,
     fontWeight: 100,
-  },  
+  },
   title2: {
     textAlign: 'center',
     color: theme.palette.primary.contrastText,
     fontSize: 'calc(.3rem + 1.5vw)',
     paddingBottom: theme.spacing(2),
-   // paddingTop: theme.spacing(10),
+    // paddingTop: theme.spacing(10),
     letterSpacing: -0.2,
     fontWeight: 100,
   },

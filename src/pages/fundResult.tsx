@@ -17,7 +17,7 @@ const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
   subFundClasses: state.fundReducer.subFundClasses,
   fundsByClass: state.fundReducer.fundsByClass,
-  loading: state.fundReducer.loading
+  loading: state.fundReducer.loading,
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
   container: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2),
-    minHeight: '100vh'
+    minHeight: '100vh',
   },
   table: {
     paddingRight: theme.spacing(2),
@@ -68,7 +68,7 @@ const SubfundClasses = (props: Props) => {
     subFundClasses,
     getFundsByClass,
     fundsByClass,
-    loading
+    loading,
   } = props
   const { fundid, subfundid, classid } = useParams<Params>()
   const classes = useStyles()
@@ -139,37 +139,38 @@ const SubfundClasses = (props: Props) => {
 
   return (
     <div className={classes.container}>
-        {!loading &&
+      {!loading && (
         <>
-            <Bcrumbs
-        data={[
-          {
-            name: 'Home',
-            route: '/',
-          },
-          {
-            name: subFunds ? subFunds[0].name : '',
-            route: `/fund/${fundid}`,
-          },
-          {
-            name: subFundClasses ? subFundClasses.subFund : '',
-            route: `/fund/${fundid}/${subfundid}`,
-          },
-        ]}
-        last={fundsByClass ? fundsByClass[0].class : ''}
-      />
-      <Table
-        className={classes.table}
-        data={sortedData}
-        dateOrder={dateOrder}
-        sortFunds={(type: SortType, order: number) => sortFunds(type, order)}
-        currentSort={currentSort}
-        reportOrder={reportOrder}
-        alertOrder={alertOrder}
-      />
+          <Bcrumbs
+            data={[
+              {
+                name: 'Home',
+                route: '/',
+              },
+              {
+                name: subFunds ? subFunds[0].name : '',
+                route: `/fund/${fundid}`,
+              },
+              {
+                name: subFundClasses ? subFundClasses.subFund : '',
+                route: `/fund/${fundid}/${subfundid}`,
+              },
+            ]}
+            last={fundsByClass ? fundsByClass[0].class : ''}
+          />
+          <Table
+            className={classes.table}
+            data={sortedData}
+            dateOrder={dateOrder}
+            sortFunds={(type: SortType, order: number) =>
+              sortFunds(type, order)
+            }
+            currentSort={currentSort}
+            reportOrder={reportOrder}
+            alertOrder={alertOrder}
+          />
         </>
-        
-        }
+      )}
     </div>
   )
 }

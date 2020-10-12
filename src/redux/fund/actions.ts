@@ -1,10 +1,5 @@
 import { actions } from './constants'
-import {
-  Fund,
-  FundName,
-  SubFunClassesOfFund,
-  SubFund
-} from 'apiTypes'
+import { Fund, FundName, SubFunClassesOfFund, SubFund } from 'apiTypes'
 
 export const getFunds = (keyword?: string) => ({
   type: actions.GET_FUNDS,
@@ -66,7 +61,9 @@ export const getSubFundsClasses = (id: string) => ({
   id,
 })
 
-export const getSubFundsClassesSuccess = (classes: SubFunClassesOfFund | null) => ({
+export const getSubFundsClassesSuccess = (
+  classes: SubFunClassesOfFund | null
+) => ({
   type: actions.GET_CLASSES_BY_FUNDSUBFUNDID_SUCCESS,
   classes,
 })

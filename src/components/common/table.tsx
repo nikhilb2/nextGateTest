@@ -47,9 +47,9 @@ const useStyles = makeStyles({
       width: '50%',
     },
     [theme.breakpoints.up('md')]: {
-      width: '30%'
+      width: '30%',
     },
-  }
+  },
 })
 
 interface Props {
@@ -69,11 +69,15 @@ export default function CustomizedTables(props: Props) {
         <TableHead>
           <TableRow>
             <StyledTableCell>{title}</StyledTableCell>
-            <StyledTableCell align="right" className={classes.searchHolder} ><Searchbar onChange={(text) => {
-              if (onSearch) {
-                onSearch(text)
-              }
-            }}/></StyledTableCell>
+            <StyledTableCell align="right" className={classes.searchHolder}>
+              <Searchbar
+                onChange={(text) => {
+                  if (onSearch) {
+                    onSearch(text)
+                  }
+                }}
+              />
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -92,7 +96,6 @@ export default function CustomizedTables(props: Props) {
                   {fund.name}
                 </StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
-  
               </StyledTableRow>
             ))}
         </TableBody>
