@@ -41,14 +41,10 @@ const useStyles = makeStyles({
   table: {
     //minWidth: 700,
   },
-  search: {
-    width: '50%'
-  },
-  searchHolder: {
-    display:'flex',
-    flexDirection: 'row', 
-    justifyContent: 'flex-end'
-  }
+    searchHolder: {
+      alignItems: 'flex-end',
+      width: '30%'
+    }
 })
 
 interface Props {
@@ -68,7 +64,7 @@ export default function CustomizedTables(props: Props) {
         <TableHead>
           <TableRow>
             <StyledTableCell>{title}</StyledTableCell>
-            <StyledTableCell align="right" className={classes.searchHolder}><Searchbar className={classes.search} onChange={(text) => {
+            <StyledTableCell align="right" className={classes.searchHolder} ><Searchbar onChange={(text) => {
               if (onSearch) {
                 onSearch(text)
               }
@@ -91,6 +87,7 @@ export default function CustomizedTables(props: Props) {
                   {fund.name}
                 </StyledTableCell>
                 <StyledTableCell align="right"></StyledTableCell>
+  
               </StyledTableRow>
             ))}
         </TableBody>
