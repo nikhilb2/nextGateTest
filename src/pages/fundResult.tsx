@@ -17,6 +17,7 @@ const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
   subFundClasses: state.fundReducer.subFundClasses,
   fundsByClass: state.fundReducer.fundsByClass,
+  loading: state.fundReducer.loading
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
@@ -67,6 +68,7 @@ const SubfundClasses = (props: Props) => {
     subFundClasses,
     getFundsByClass,
     fundsByClass,
+    loading
   } = props
   const { fundid, subfundid, classid } = useParams<Params>()
   const classes = useStyles()
@@ -137,7 +139,9 @@ const SubfundClasses = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      <Bcrumbs
+        {!loading &&
+        <>
+            <Bcrumbs
         data={[
           {
             name: 'Home',
@@ -163,6 +167,9 @@ const SubfundClasses = (props: Props) => {
         reportOrder={reportOrder}
         alertOrder={alertOrder}
       />
+        </>
+        
+        }
     </div>
   )
 }

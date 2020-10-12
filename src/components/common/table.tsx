@@ -14,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { FundName, SubFundClasses } from 'apiTypes'
 import Searchbar from './searchbox'
-
+import theme from 'theme'
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -41,10 +41,15 @@ const useStyles = makeStyles({
   table: {
     //minWidth: 700,
   },
-    searchHolder: {
-      alignItems: 'flex-end',
+  searchHolder: {
+    alignItems: 'flex-end',
+    [theme.breakpoints.down('sm')]: {
+      width: '50%',
+    },
+    [theme.breakpoints.up('md')]: {
       width: '30%'
-    }
+    },
+  }
 })
 
 interface Props {

@@ -12,7 +12,6 @@ import Title from 'components/common/title'
 import { makeStyles } from '@material-ui/core/styles'
 import theme from 'theme'
 import { Box, CssBaseline } from '@material-ui/core'
-import Searchbox from 'components/common/searchbox'
 import Table from 'components/common/table'
 import { FundName } from 'apiTypes'
 
@@ -57,6 +56,7 @@ const mapStateToProps = (state: RootState) => ({
   funds: state.fundReducer.funds,
   fundsByClass: state.fundReducer.fundsByClass,
   subFunds: state.fundReducer.subFunds,
+  loading: state.fundReducer.loading
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
@@ -75,7 +75,7 @@ type Props = PropsFromRedux & {}
 const Home = (props: Props) => {
   const { push } = useHistory()
   const classes = useStyles()
-  const { getFunds, funds } = props
+  const { getFunds, funds, loading } = props
 
   const [filteredFunds, setFilteredFunds] = useState<FundName[] | null>(null)
   const filterFunds = (keyword: string) => {
@@ -106,13 +106,14 @@ const Home = (props: Props) => {
           <Searchbox onChange={(text) => filterFunds(text)} />
   </Box>*/}
       </Box>
+      {!loading && 
       <Table
         className={classes.table}
         funds={filteredFunds}
         onSelect={(id: string) => push(`fund/${id}`)}
         title="Select fund"
         onSearch={(text) => filterFunds(text)}
-      />
+      />}
     </Box>
   )
 }

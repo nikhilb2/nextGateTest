@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   withStyles,
   Theme,
@@ -12,9 +12,9 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import { SubFund } from 'apiTypes'
+import { SubFund, SubFundOfFund } from 'apiTypes'
 import Searchbar from './searchbox'
-
+import theme from 'theme'
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
@@ -46,7 +46,12 @@ const useStyles = makeStyles({
   },
   searchHolder: {
     alignItems: 'flex-end',
-    width: '30%'
+    [theme.breakpoints.down('sm')]: {
+      width: '50%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '30%'
+    },
   }
 })
 
@@ -55,11 +60,31 @@ interface Props {
   data?: SubFund | null
   onSelect?(id: string): void
   title?: string
-  onSearch?(keyword: string): void
+  //onSearch?(keyword: string): void
 }
+
+
 export default function SubFundTable(props: Props) {
   const classes = useStyles()
-  const { className, data, onSelect, title, onSearch } = props
+  const { className, data, onSelect, title } = props
+  const [ filteredSubFunds, setFilteredSubFunds ] = useState<SubFundOfFund[] | null>(null)
+
+  useEffect(() => {
+    if (data) {
+      setFilteredSubFunds(data.subfunds)
+    }
+  }, [data])
+
+
+  const filterSubFund = (keyword: string) => {
+    if (data && data.subfunds) {
+      const filtered = data.subfunds.filter(fund => fund.subfundName.toLowerCase().includes(keyword.toLowerCase()))
+      console.log(filtered)
+      setFilteredSubFunds(filtered)
+
+    }
+  }
+
   return (
     <TableContainer component={Paper} className={className}>
       <Table className={classes.table} aria-label="customized table">
@@ -67,15 +92,14 @@ export default function SubFundTable(props: Props) {
           <TableRow>
             <StyledTableCell>{title}</StyledTableCell>
             <StyledTableCell align="right" className={classes.searchHolder}><Searchbar className={classes.search} onChange={(text) => {
-              if (onSearch) {
-                onSearch(text)
-              }
+    
+                filterSubFund(text)
             }}/></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data &&
-            data.subfunds.map((fund, index) => (
+          {
+            filteredSubFunds?.map((fund, index) => (
               <StyledTableRow
                 style={{ cursor: 'pointer' }}
                 key={fund.subfundId}

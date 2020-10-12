@@ -8,8 +8,10 @@ import { makeStyles } from '@material-ui/core'
 import Bcrumbs from 'components/common/breadcrumbs'
 import SubFundTable from 'components/common/SubFundsTable'
 import { useHistory, useLocation } from 'react-router-dom'
+
 const mapStateToProps = (state: RootState) => ({
   subFunds: state.fundReducer.subFunds,
+  loading: state.fundReducer.loading
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
@@ -49,12 +51,13 @@ const useStyles = makeStyles({
   },
 })
 
-const Subfund = (props: Props) => {
-  const { getSubFunds, subFunds } = props
+const Subfunds = (props: Props) => {
+  const { getSubFunds, subFunds, loading } = props
   const classes = useStyles()
   const { fundid } = useParams<Params>()
   const { push } = useHistory()
   const { pathname } = useLocation()
+
   useEffect(() => {
     if (fundid) {
       getSubFunds(fundid)
@@ -64,7 +67,9 @@ const Subfund = (props: Props) => {
   return (
     <div className={classes.container}>
       <div>
-        <Bcrumbs
+        {!loading &&
+          <>
+            <Bcrumbs
           data={[
             {
               name: 'Home',
@@ -79,9 +84,11 @@ const Subfund = (props: Props) => {
           title={subFunds ? subFunds[0].name : ''}
           onSelect={(id) => push(pathname + '/' + id)}
         />
+          </>
+        }
       </div>
     </div>
   )
 }
 
-export default connector(Subfund)
+export default connector(Subfunds)
