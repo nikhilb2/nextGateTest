@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.main,
     overflow: 'hidden',
     width: '100vw',
-    borderBottomLeftRadius: '5vw',
+  //  borderBottomLeftRadius: '5vw',
     paddingBottom: theme.spacing(2),
     //    borderBottomRightRadius: '10vw'
   },
