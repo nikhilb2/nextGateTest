@@ -5,15 +5,15 @@ Typescript, React, React router, redux, redux saga, material ui, firebase realti
 ## Project structue
 App's main entry point is index.tsx where react router and redux store is initialized.
 
-working tree
-Root
--src
---components
----common
----header
----pages
----redux
-
+working tree\
+Root\
+-src\
+--components\
+---common\
+---header\
+---pages\
+---redux\
+ 
 all main pages are are pages folder, 
 
 components folder has small components like header, tables etc
