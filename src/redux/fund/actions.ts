@@ -1,20 +1,29 @@
 import { actions } from './constants'
 import { Fund, FundName, SubFunClassesOfFund, SubFund } from 'apiTypes'
 
+
+
+// get funds name from firebase
 export const getFunds = (keyword?: string) => ({
   type: actions.GET_FUNDS,
   keyword,
 })
 
+//on successfully getting funds
+
 export const getFundsSuccess = (funds: FundName[] | null) => ({
   type: actions.GET_FUNDS_SUCCESS,
   funds,
 })
+
+//on fail
 export const getFundsFailed = (error: string) => ({
   type: actions.GET_FUNDS_FAILED,
   error,
 })
 
+
+//get funds by unique id
 export const getFundsByClass = (id?: string) => ({
   type: actions.GET_FUNDS_BY_CLASS,
   id,
@@ -29,6 +38,9 @@ export const getFundsByClassFailed = (error: string) => ({
   error,
 })
 
+
+
+//get sub funds by fund id
 export const getSubFunds = (id: string) => ({
   type: actions.GET_SUBFUNDS,
   id,
@@ -43,6 +55,8 @@ export const getSubFundsFailed = (error: string) => ({
   error,
 })
 
+
+// get classes of sub funds
 export const getSubFundsClasses = (id: string) => ({
   type: actions.GET_CLASSES_BY_FUNDSUBFUNDID,
   id,

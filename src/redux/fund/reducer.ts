@@ -13,20 +13,16 @@ import {
 } from './constants'
 
 const initialState: FundState = {
-  //gettingFunds: false,
   funds: null,
   getFundsError: null,
   skip: 0,
   getMoreFundsError: null,
   keyword: null,
-  //gettingFundsByClass: false,
   fundsByClass: null,
   getFundsByClassError: null,
   subFunds: null,
-  //gettingSubfunds: false,
   getSubfundsError: null,
   subFundClasses: null,
-  //gettingSubFundClasses: false,
   getSubFundClassesError: null,
   loading: false,
 }

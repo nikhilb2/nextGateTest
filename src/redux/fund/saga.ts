@@ -26,7 +26,6 @@ import {
   SubFund,
   SubFunClassesOfFund,
 } from 'apiTypes'
-import { RootState } from 'configureStore'
 
 const {
   GET_FUNDS,
@@ -35,7 +34,6 @@ const {
   GET_CLASSES_BY_FUNDSUBFUNDID,
 } = actions
 
-const getFundSkip = (state: RootState) => state.fundReducer.funds?.length
 
 function* getFunds(action: GetFundsAction) {
   const getResult = async (): Promise<Success | Fail> => {
