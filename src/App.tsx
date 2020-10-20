@@ -36,7 +36,7 @@ const App = (props: Props) => {
   const { loading } = props
   return (
     <MuiThemeProvider theme={theme}>
-      <Header />
+      <Route path="/" component={Header} />
       <div className={classes.heeaderDiv} />
       <Route exact path="/" component={Home} />
       <Route exact path="/fund/:fundid" component={SubFund} />

@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 var firebaseConfig = {
+  //this key is not supposed to be here
   apiKey: 'AIzaSyDx6T7w3OYs9Yemtz-HRg6dwFrjqaJur-Q',
   authDomain: 'nextgate-f883f.firebaseapp.com',
   databaseURL: 'https://nextgate-f883f.firebaseio.com',
